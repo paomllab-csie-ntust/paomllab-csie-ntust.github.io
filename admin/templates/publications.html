@@ -1,0 +1,583 @@
+{% extends "base.html" %}
+
+{% block title %}Publications{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="https://code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
+<style>
+    .drag-handle {
+        cursor: move;
+        color: #999;
+        padding: 0 10px;
+        user-select: none;
+    }
+    .drag-handle:hover {
+        color: #333;
+    }
+    .publications-sortable tr {
+        transition: background-color 0.2s;
+    }
+    .publications-sortable tr.ui-sortable-helper {
+        background-color: #f8f9fa;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+    }
+    .publications-sortable tr.ui-sortable-placeholder {
+        background-color: #e9ecef;
+        visibility: visible !important;
+        height: 50px;
+    }
+    .nav-tabs {
+        border-bottom: 2px solid #dee2e6;
+    }
+    .nav-tabs .nav-link {
+        color: #6c757d;
+        border: none;
+        border-bottom: 2px solid transparent;
+        margin-bottom: -2px;
+    }
+    .nav-tabs .nav-link:hover {
+        color: #4e73df;
+        border-bottom-color: #4e73df;
+    }
+    .nav-tabs .nav-link.active {
+        color: #4e73df;
+        background-color: transparent;
+        border-bottom-color: #4e73df;
+        font-weight: 600;
+    }
+    .card-header {
+        background-color: #fff;
+        border-bottom: none;
+        padding-bottom: 0;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="page-header d-flex justify-content-between align-items-center">
+    <div>
+        <h1><i class="fas fa-book"></i> Publications 管理</h1>
+        <p class="text-muted mb-0">管理研究出版物</p>
+    </div>
+    <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addModal">
+        <i class="fas fa-plus"></i> 新增 Publication
+    </button>
+</div>
+
+<div class="card">
+    <div class="card-header">
+        <nav>
+            <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                <button class="nav-link active" id="nav-all-tab" data-bs-toggle="tab" data-bs-target="#nav-all" type="button" role="tab" aria-controls="nav-all" aria-selected="true">
+                    <i class="fas fa-list"></i> 全部
+                </button>
+                <button class="nav-link" id="nav-journal-tab" data-bs-toggle="tab" data-bs-target="#nav-journal" type="button" role="tab" aria-controls="nav-journal" aria-selected="false">
+                    <i class="fas fa-book"></i> Journal
+                </button>
+                <button class="nav-link" id="nav-conference-tab" data-bs-toggle="tab" data-bs-target="#nav-conference" type="button" role="tab" aria-controls="nav-conference" aria-selected="false">
+                    <i class="fas fa-users"></i> Conference
+                </button>
+                <button class="nav-link" id="nav-book-tab" data-bs-toggle="tab" data-bs-target="#nav-book" type="button" role="tab" aria-controls="nav-book" aria-selected="false">
+                    <i class="fas fa-book-open"></i> Book
+                </button>
+            </div>
+        </nav>
+    </div>
+    <div class="card-body">
+        <div class="tab-content" id="nav-tabContent">
+            <!-- All Tab -->
+            <div class="tab-pane fade show active" id="nav-all" role="tabpanel" aria-labelledby="nav-all-tab">
+                <div class="alert alert-info mb-3">
+                    <i class="fas fa-info-circle"></i>
+                    「全部」Tab 僅供查看，請切換到 Journal、Conference 或 Book Tab 進行拖曳排序
+                </div>
+                <div class="table-responsive">
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>類型</th>
+                                <th>標題</th>
+                                <th>作者</th>
+                                <th>年份</th>
+                                <th>操作</th>
+                            </tr>
+                        </thead>
+                        <tbody id="publicationsTableAll">
+                            {% for pub in publications %}
+                            <tr data-type="{{ pub.type }}" data-id="{{ pub.id }}">
+                                <td>{{ pub.id }}</td>
+                                <td>
+                                    {% if pub.type == 'journal' %}
+                                        <span class="badge bg-primary">Journal</span>
+                                    {% elif pub.type == 'conference' %}
+                                        <span class="badge bg-success">Conference</span>
+                                    {% elif pub.type == 'book' %}
+                                        <span class="badge bg-warning">Book</span>
+                                    {% else %}
+                                        <span class="badge bg-info">Dissertation</span>
+                                    {% endif %}
+                                </td>
+                                <td>{{ pub.title }}</td>
+                                <td>{{ pub.authors }}</td>
+                                <td>{{ pub.year }}</td>
+                                <td>
+                                    <button class="btn btn-sm btn-outline-primary edit-btn" data-id="{{ pub.id }}">
+                                        <i class="fas fa-edit"></i>
+                                    </button>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Journal Tab -->
+            <div class="tab-pane fade" id="nav-journal" role="tabpanel" aria-labelledby="nav-journal-tab">
+                <div class="table-responsive">
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th style="width: 40px;"></th>
+                                <th>ID</th>
+                                <th>標題</th>
+                                <th>作者</th>
+                                <th>年份</th>
+                                <th>Volume</th>
+                                <th>Pages</th>
+                                <th>操作</th>
+                            </tr>
+                        </thead>
+                        <tbody id="publicationsTableJournal" class="publications-sortable">
+                            {% for pub in publications %}
+                            {% if pub.type == 'journal' %}
+                            <tr data-type="{{ pub.type }}" data-id="{{ pub.id }}">
+                                <td class="drag-handle">
+                                    <i class="fas fa-grip-vertical"></i>
+                                </td>
+                                <td>{{ pub.id }}</td>
+                                <td>{{ pub.title }}</td>
+                                <td>{{ pub.authors }}</td>
+                                <td>{{ pub.year }}</td>
+                                <td>{{ pub.volume }}</td>
+                                <td>{{ pub.pages }}</td>
+                                <td>
+                                    <button class="btn btn-sm btn-outline-primary edit-btn" data-id="{{ pub.id }}">
+                                        <i class="fas fa-edit"></i>
+                                    </button>
+                                </td>
+                            </tr>
+                            {% endif %}
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Conference Tab -->
+            <div class="tab-pane fade" id="nav-conference" role="tabpanel" aria-labelledby="nav-conference-tab">
+                <div class="table-responsive">
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th style="width: 40px;"></th>
+                                <th>ID</th>
+                                <th>標題</th>
+                                <th>作者</th>
+                                <th>年份</th>
+                                <th>Location</th>
+                                <th>操作</th>
+                            </tr>
+                        </thead>
+                        <tbody id="publicationsTableConference" class="publications-sortable">
+                            {% for pub in publications %}
+                            {% if pub.type == 'conference' %}
+                            <tr data-type="{{ pub.type }}" data-id="{{ pub.id }}">
+                                <td class="drag-handle">
+                                    <i class="fas fa-grip-vertical"></i>
+                                </td>
+                                <td>{{ pub.id }}</td>
+                                <td>{{ pub.title }}</td>
+                                <td>{{ pub.authors }}</td>
+                                <td>{{ pub.year }}</td>
+                                <td>{{ pub.location }}</td>
+                                <td>
+                                    <button class="btn btn-sm btn-outline-primary edit-btn" data-id="{{ pub.id }}">
+                                        <i class="fas fa-edit"></i>
+                                    </button>
+                                </td>
+                            </tr>
+                            {% endif %}
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Book Tab -->
+            <div class="tab-pane fade" id="nav-book" role="tabpanel" aria-labelledby="nav-book-tab">
+                <div class="table-responsive">
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th style="width: 40px;"></th>
+                                <th>ID</th>
+                                <th>標題</th>
+                                <th>作者</th>
+                                <th>年份</th>
+                                <th>Publisher</th>
+                                <th>操作</th>
+                            </tr>
+                        </thead>
+                        <tbody id="publicationsTableBook" class="publications-sortable">
+                            {% for pub in publications %}
+                            {% if pub.type == 'book' %}
+                            <tr data-type="{{ pub.type }}" data-id="{{ pub.id }}">
+                                <td class="drag-handle">
+                                    <i class="fas fa-grip-vertical"></i>
+                                </td>
+                                <td>{{ pub.id }}</td>
+                                <td>{{ pub.title }}</td>
+                                <td>{{ pub.authors }}</td>
+                                <td>{{ pub.year }}</td>
+                                <td>{{ pub.publisher }}</td>
+                                <td>
+                                    <button class="btn btn-sm btn-outline-primary edit-btn" data-id="{{ pub.id }}">
+                                        <i class="fas fa-edit"></i>
+                                    </button>
+                                </td>
+                            </tr>
+                            {% endif %}
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Add/Edit Modal -->
+<div class="modal fade" id="addModal" tabindex="-1">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">新增 Publication</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <form id="pubForm">
+                    <input type="hidden" id="pubId">
+                    
+                    <div class="mb-3">
+                        <label class="form-label">類型 *</label>
+                        <select class="form-select" id="pubType" required>
+                            <option value="journal">Journal</option>
+                            <option value="conference">Conference</option>
+                            <option value="book">Book</option>
+                            <option value="dissertation">Dissertation</option>
+                        </select>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label class="form-label">作者 *</label>
+                        <input type="text" class="form-control" id="pubAuthors" required 
+                               placeholder="例如: Y.-J. Lee, Y-R. Yeh and H.-K. Pao">
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label class="form-label">標題 *</label>
+                        <input type="text" class="form-control" id="pubTitle" required>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label class="form-label">Venue *</label>
+                        <input type="text" class="form-control" id="pubVenue" required>
+                    </div>
+                    
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">年份 *</label>
+                            <input type="number" class="form-control" id="pubYear" required min="1900" max="2100">
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">高亮作者</label>
+                            <input type="text" class="form-control" id="pubHighlight" placeholder="H.-K. Pao">
+                        </div>
+                    </div>
+                    
+                    <!-- Journal specific -->
+                    <div id="journalFields" style="display:none;">
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label">Volume</label>
+                                <input type="text" class="form-control" id="pubVolume">
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label">Pages</label>
+                                <input type="text" class="form-control" id="pubPages">
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Conference specific -->
+                    <div id="conferenceFields" style="display:none;">
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label">Location</label>
+                                <input type="text" class="form-control" id="pubLocation">
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label">Date</label>
+                                <input type="text" class="form-control" id="pubDate">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Book specific -->
+                    <div id="bookFields" style="display:none;">
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label">Editors</label>
+                                <input type="text" class="form-control" id="pubEditors">
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label">Publisher</label>
+                                <input type="text" class="form-control" id="pubPublisher">
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger me-auto" id="deleteBtn" style="display: none;">
+                    <i class="fas fa-trash"></i> 刪除
+                </button>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">取消</button>
+                <button type="button" class="btn btn-primary" id="saveBtn">儲存</button>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script src="https://code.jquery.com/ui/1.13.2/jquery-ui.min.js"></script>
+<script>
+$(document).ready(function() {
+    // Restore active tab from localStorage
+    const activeTab = localStorage.getItem('publicationsActiveTab');
+    if (activeTab) {
+        const tabTrigger = new bootstrap.Tab(document.querySelector(`#${activeTab}`));
+        tabTrigger.show();
+        localStorage.removeItem('publicationsActiveTab');
+    }
+
+    // Save active tab when switching
+    $('button[data-bs-toggle="tab"]').on('shown.bs.tab', function (e) {
+        const tabId = e.target.id;
+        // Don't save to localStorage here, only save before reload
+    });
+
+    // Initialize sortable for type-specific tables only (not "All" tab)
+    function initSortable(tableId, type, tabId) {
+        $(`#${tableId}`).sortable({
+            handle: '.drag-handle',
+            placeholder: 'ui-sortable-placeholder',
+            helper: function(e, tr) {
+                var $originals = tr.children();
+                var $helper = tr.clone();
+                $helper.children().each(function(index) {
+                    $(this).width($originals.eq(index).width());
+                });
+                return $helper;
+            },
+            update: function(event, ui) {
+                // Get new order from current type tab
+                const typeOrder = [];
+                $(`#${tableId} tr`).each(function() {
+                    const id = $(this).data('id');
+                    if (id) {
+                        typeOrder.push(id);
+                    }
+                });
+
+                // Get all publications and reorder only the current type
+                $.ajax({
+                    url: '/api/publications',
+                    method: 'GET',
+                    success: function(data) {
+                        const allPubs = data.publications;
+                        const otherPubs = allPubs.filter(p => p.type !== type);
+                        const typePubs = allPubs.filter(p => p.type === type);
+
+                        // Reorder type publications according to new order
+                        const reorderedTypePubs = [];
+                        typeOrder.forEach(id => {
+                            const pub = typePubs.find(p => p.id === id);
+                            if (pub) reorderedTypePubs.push(pub);
+                        });
+
+                        // Combine: keep other types in original position, insert reordered type pubs
+                        const finalOrder = [];
+                        allPubs.forEach(pub => {
+                            if (pub.type === type) {
+                                if (reorderedTypePubs.length > 0) {
+                                    finalOrder.push(reorderedTypePubs.shift().id);
+                                }
+                            } else {
+                                finalOrder.push(pub.id);
+                            }
+                        });
+
+                        // Save current tab to localStorage before reload
+                        localStorage.setItem('publicationsActiveTab', tabId);
+
+                        // Save order to server
+                        $.ajax({
+                            url: '/api/publications/reorder',
+                            method: 'POST',
+                            contentType: 'application/json',
+                            data: JSON.stringify({ order: finalOrder }),
+                            success: function(response) {
+                                console.log('Order saved successfully for type:', type);
+                                // Reload page to sync all tabs
+                                location.reload();
+                            },
+                            error: function(xhr) {
+                                alert('儲存順序失敗：' + (xhr.responseJSON?.error || '未知錯誤'));
+                            }
+                        });
+                    }
+                });
+            }
+        });
+    }
+
+    // Initialize sortable for type-specific tables only (NOT the "All" tab)
+    initSortable('publicationsTableJournal', 'journal', 'nav-journal-tab');
+    initSortable('publicationsTableConference', 'conference', 'nav-conference-tab');
+    initSortable('publicationsTableBook', 'book', 'nav-book-tab');
+
+    // Show/hide fields based on type
+    $('#pubType').change(function() {
+        const type = $(this).val();
+        $('#journalFields, #conferenceFields, #bookFields').hide();
+
+        if (type === 'journal') {
+            $('#journalFields').show();
+        } else if (type === 'conference') {
+            $('#conferenceFields').show();
+        } else if (type === 'book') {
+            $('#bookFields').show();
+        }
+    });
+
+    // Save publication
+    $('#saveBtn').click(function() {
+        const pubData = {
+            type: $('#pubType').val(),
+            authors: $('#pubAuthors').val(),
+            title: $('#pubTitle').val(),
+            venue: $('#pubVenue').val(),
+            year: parseInt($('#pubYear').val()),
+            highlight_author: $('#pubHighlight').val() || 'H.-K. Pao'
+        };
+
+        // Add type-specific fields
+        if (pubData.type === 'journal') {
+            pubData.volume = $('#pubVolume').val();
+            pubData.pages = $('#pubPages').val();
+        } else if (pubData.type === 'conference') {
+            pubData.location = $('#pubLocation').val();
+            pubData.date = $('#pubDate').val();
+        } else if (pubData.type === 'book') {
+            pubData.editors = $('#pubEditors').val();
+            pubData.publisher = $('#pubPublisher').val();
+        }
+
+        const pubId = $('#pubId').val();
+        const url = pubId ? `/api/publications/${pubId}` : '/api/publications';
+        const method = pubId ? 'PUT' : 'POST';
+
+        if (pubId) {
+            pubData.id = pubId;
+        }
+
+        $.ajax({
+            url: url,
+            method: method,
+            contentType: 'application/json',
+            data: JSON.stringify(pubData),
+            success: function(response) {
+                alert('儲存成功！');
+                location.reload();
+            },
+            error: function(xhr) {
+                alert('儲存失敗：' + xhr.responseJSON.error);
+            }
+        });
+    });
+
+    // Delete publication (from modal)
+    $('#deleteBtn').click(function() {
+        if (!confirm('確定要刪除此出版物嗎？')) return;
+
+        const pubId = $('#pubId').val();
+        $.ajax({
+            url: `/api/publications/${pubId}`,
+            method: 'DELETE',
+            success: function() {
+                alert('刪除成功！');
+                location.reload();
+            },
+            error: function(xhr) {
+                alert('刪除失敗：' + xhr.responseJSON.error);
+            }
+        });
+    });
+
+    // Edit publication (load data into modal)
+    $('.edit-btn').click(function() {
+        const pubId = $(this).data('id');
+        $.get('/api/publications', function(data) {
+            const pub = data.publications.find(p => p.id === pubId);
+            if (pub) {
+                $('#pubId').val(pub.id);
+                $('#pubType').val(pub.type).trigger('change');
+                $('#pubAuthors').val(pub.authors);
+                $('#pubTitle').val(pub.title);
+                $('#pubVenue').val(pub.venue);
+                $('#pubYear').val(pub.year);
+                $('#pubHighlight').val(pub.highlight_author || '');
+
+                if (pub.type === 'journal') {
+                    $('#pubVolume').val(pub.volume || '');
+                    $('#pubPages').val(pub.pages || '');
+                } else if (pub.type === 'conference') {
+                    $('#pubLocation').val(pub.location || '');
+                    $('#pubDate').val(pub.date || '');
+                } else if (pub.type === 'book') {
+                    $('#pubEditors').val(pub.editors || '');
+                    $('#pubPublisher').val(pub.publisher || '');
+                }
+
+                $('.modal-title').text('編輯 Publication');
+                $('#deleteBtn').show(); // 顯示刪除按鈕
+                $('#addModal').modal('show');
+            }
+        });
+    });
+
+    // Reset form when modal closes
+    $('#addModal').on('hidden.bs.modal', function() {
+        $('#pubForm')[0].reset();
+        $('#pubId').val('');
+        $('.modal-title').text('新增 Publication');
+        $('#deleteBtn').hide(); // 隱藏刪除按鈕
+    });
+});
+</script>
+{% endblock %}
+

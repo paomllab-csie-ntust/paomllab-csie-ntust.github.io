@@ -1,0 +1,454 @@
+{
+  "contact_person": {
+    "name": "林品臻",
+    "email": "",
+    "photo": "asset/member/林品臻.jpg"
+  },
+  "lab_info": {
+    "room": "RB304-3",
+    "phone": "02-2733-3141 ext. 7298"
+  },
+  "members": [
+    {
+      "id": "m000",
+      "name": "林品臻",
+      "degree": "MS",
+      "year": 2025,
+      "photo": "asset/member/林品臻.jpg",
+      "status": "active"
+    },
+    {
+      "id": "m001",
+      "name": "Ting-Feng Ho",
+      "name_zh": "何霆鋒",
+      "degree": "MS",
+      "year": 2024,
+      "photo": "asset/member/Ting-Feng Ho.png",
+      "status": "active"
+    },
+    {
+      "id": "m002",
+      "name": "莊恩妮",
+      "degree": "MS",
+      "year": 2024,
+      "photo": "asset/member/莊恩妮.jpg",
+      "status": "active"
+    },
+    {
+      "id": "m003",
+      "name": "鄭孟恒",
+      "degree": "MS",
+      "year": 2024,
+      "photo": "asset/member/pp.png",
+      "status": "active"
+    },
+    {
+      "id": "m004",
+      "name": "賴冠良",
+      "degree": "MS",
+      "year": 2024,
+      "photo": "asset/member/賴冠良.jpg",
+      "status": "active"
+    },
+    {
+      "id": "m005",
+      "name": "賴昰龍",
+      "degree": "MS",
+      "year": 2024,
+      "photo": "asset/member/賴昰龍.png",
+      "status": "active"
+    },
+    {
+      "id": "m006",
+      "name": "賴紹宇",
+      "degree": "MS",
+      "year": 2024,
+      "photo": "asset/member/賴紹宇.jpg",
+      "status": "active"
+    },
+    {
+      "id": "m007",
+      "name": "李昀蓁",
+      "degree": "MS",
+      "year": 2024,
+      "photo": "asset/member/李昀蓁.jpeg",
+      "status": "active"
+    },
+    {
+      "id": "m008",
+      "name": "陳亮憬",
+      "degree": "MS",
+      "year": 2024,
+      "photo": "asset/member/陳亮憬.jpg",
+      "status": "active"
+    },
+    {
+      "id": "m009",
+      "name": "Luis Frentzen Salim",
+      "degree": "MS",
+      "year": 2024,
+      "photo": "asset/member/pp.png",
+      "status": "active"
+    },
+    {
+      "id": "m010",
+      "name": "Euhid Aman",
+      "degree": "MS",
+      "year": 2024,
+      "photo": "asset/member/Euhid Aman.jpg",
+      "status": "active"
+    },
+    {
+      "id": "m011",
+      "name": "Nguyen Tai Loc",
+      "degree": "MS",
+      "year": 2024,
+      "photo": "asset/member/pp.png",
+      "status": "active"
+    },
+    {
+      "id": "m012",
+      "name": "Michael",
+      "degree": "MS",
+      "year": 2024,
+      "photo": "asset/member/pp.png",
+      "status": "active"
+    },
+    {
+      "id": "m013",
+      "name": "Kevin Subiyantoro",
+      "degree": "MS",
+      "year": 2024,
+      "photo": "asset/member/pp.png",
+      "status": "active"
+    },
+    {
+      "id": "m014",
+      "name": "Diego Vazquez Gonzalez",
+      "degree": "PhD",
+      "year": 2023,
+      "photo": "asset/member/pp.png",
+      "status": "graduated"
+    },
+    {
+      "id": "m015",
+      "name": "翁章凱",
+      "degree": "MS",
+      "year": 2023,
+      "photo": "asset/member/pp.png",
+      "status": "active"
+    },
+    {
+      "id": "m016",
+      "name": "蕭心瑜",
+      "degree": "MS",
+      "year": 2023,
+      "photo": "asset/member/pp.png",
+      "status": "active"
+    },
+    {
+      "id": "m017",
+      "name": "余品嫺",
+      "degree": "MS",
+      "year": 2023,
+      "photo": "asset/member/余品嫺.jpg",
+      "status": "graduated"
+    },
+    {
+      "id": "m018",
+      "name": "曹寶心",
+      "degree": "MS",
+      "year": 2023,
+      "photo": "asset/member/pp.png",
+      "status": "active"
+    },
+    {
+      "id": "m019",
+      "name": "Jitimon Mongkolsriniyom",
+      "degree": "MS",
+      "year": 2023,
+      "photo": "asset/member/pp.png",
+      "status": "graduated"
+    },
+    {
+      "id": "m020",
+      "name": "Wimaya Nitya Phandita",
+      "degree": "MS",
+      "year": 2023,
+      "photo": "asset/member/pp.png",
+      "status": "graduated"
+    },
+    {
+      "id": "m021",
+      "name": "Alexander Assisi",
+      "degree": "MS",
+      "year": 2023,
+      "photo": "asset/member/pp.png",
+      "status": "graduated"
+    },
+    {
+      "id": "m022",
+      "name": "Zolnamar Dorjsembe",
+      "degree": "PhD",
+      "year": 2022,
+      "photo": "asset/member/pp.png",
+      "status": "active"
+    },
+    {
+      "id": "m023",
+      "name": "Ghaluh Indah Permata Sari",
+      "degree": "PhD",
+      "year": 2022,
+      "photo": "asset/member/pp.png",
+      "status": "active"
+    },
+    {
+      "id": "m024",
+      "name": "宋浩嘉",
+      "degree": "MS",
+      "year": 2022,
+      "photo": "asset/member/pp.png",
+      "status": "graduated"
+    },
+    {
+      "id": "m025",
+      "name": "曾柏翰",
+      "degree": "MS",
+      "year": 2022,
+      "photo": "asset/member/pp.png",
+      "status": "graduated"
+    },
+    {
+      "id": "m026",
+      "name": "葉詠杰",
+      "degree": "MS",
+      "year": 2022,
+      "photo": "asset/member/pp.png",
+      "status": "active"
+    },
+    {
+      "id": "m027",
+      "name": "楊金榮",
+      "degree": "MS",
+      "year": 2022,
+      "photo": "asset/member/pp.png",
+      "status": "active"
+    },
+    {
+      "id": "m028",
+      "name": "陳彥廷",
+      "degree": "MS",
+      "year": 2022,
+      "photo": "asset/member/pp.png",
+      "status": "graduated"
+    },
+    {
+      "id": "m029",
+      "name": "林永吉",
+      "degree": "MS",
+      "year": 2022,
+      "photo": "asset/member/pp.png",
+      "status": "active"
+    },
+    {
+      "id": "m030",
+      "name": "廖耘",
+      "degree": "MS",
+      "year": 2022,
+      "photo": "asset/member/pp.png",
+      "status": "active"
+    },
+    {
+      "id": "m031",
+      "name": "Chia-Cheng Chen",
+      "degree": "MS",
+      "year": 2022,
+      "photo": "asset/member/pp.png",
+      "status": "graduated"
+    },
+    {
+      "id": "m032",
+      "name": "Tomy Tjandra",
+      "degree": "MS",
+      "year": 2022,
+      "photo": "asset/member/pp.png",
+      "status": "graduated"
+    },
+    {
+      "id": "m033",
+      "name": "Charles Chang",
+      "degree": "MS",
+      "year": 2022,
+      "photo": "asset/member/pp.png",
+      "status": "graduated"
+    },
+    {
+      "id": "m034",
+      "name": "湯傑堯",
+      "degree": "MS",
+      "year": 2021,
+      "photo": "asset/member/pp.png",
+      "status": "graduated"
+    },
+    {
+      "id": "m035",
+      "name": "李欣諭",
+      "degree": "MS",
+      "year": 2021,
+      "photo": "asset/member/pp.png",
+      "status": "graduated"
+    },
+    {
+      "id": "m036",
+      "name": "何昆霖",
+      "degree": "MS",
+      "year": 2021,
+      "photo": "asset/member/pp.png",
+      "status": "graduated"
+    },
+    {
+      "id": "m037",
+      "name": "陳冠呈",
+      "degree": "MS",
+      "year": 2021,
+      "photo": "asset/member/pp.png",
+      "status": "active"
+    },
+    {
+      "id": "m038",
+      "name": "陳彥家",
+      "degree": "MS",
+      "year": 2021,
+      "photo": "asset/member/pp.png",
+      "status": "active"
+    },
+    {
+      "id": "m039",
+      "name": "Eng Tze Qian",
+      "degree": "MS",
+      "year": 2021,
+      "photo": "asset/member/pp.png",
+      "status": "graduated"
+    },
+    {
+      "id": "m040",
+      "name": "鍾岳霖",
+      "degree": "MS",
+      "year": 2020,
+      "photo": "asset/member/pp.png",
+      "status": "graduated"
+    },
+    {
+      "id": "m041",
+      "name": "周宇宸",
+      "degree": "MS",
+      "year": 2020,
+      "photo": "asset/member/pp.png",
+      "status": "active"
+    },
+    {
+      "id": "m042",
+      "name": "李昱佑",
+      "degree": "MS",
+      "year": 2020,
+      "photo": "asset/member/pp.png",
+      "status": "active"
+    },
+    {
+      "id": "m043",
+      "name": "廖啓丞",
+      "degree": "MS",
+      "year": 2020,
+      "photo": "asset/member/pp.png",
+      "status": "graduated"
+    },
+    {
+      "id": "m044",
+      "name": "鄭伊捷",
+      "degree": "MS",
+      "year": 2020,
+      "photo": "asset/member/pp.png",
+      "status": "graduated"
+    },
+    {
+      "id": "m045",
+      "name": "黃涵娟",
+      "degree": "PhD",
+      "year": 2019,
+      "photo": "asset/member/pp.png",
+      "status": "graduated"
+    },
+    {
+      "id": "m046",
+      "name": "彭選庭",
+      "degree": "MS",
+      "year": 2019,
+      "photo": "asset/member/pp.png",
+      "status": "graduated"
+    },
+    {
+      "id": "m047",
+      "name": "陳聖文",
+      "degree": "MS",
+      "year": 2019,
+      "photo": "asset/member/pp.png",
+      "status": "graduated"
+    },
+    {
+      "id": "m048",
+      "name": "陳星宇",
+      "degree": "MS",
+      "year": 2018,
+      "photo": "asset/member/pp.png",
+      "status": "graduated"
+    },
+    {
+      "id": "m049",
+      "name": "Sukamto",
+      "degree": "MS",
+      "year": 2018,
+      "photo": "asset/member/pp.png",
+      "status": "active"
+    },
+    {
+      "id": "m050",
+      "name": "Dat Nguyen",
+      "degree": "PhD",
+      "year": 2017,
+      "photo": "asset/member/pp.png",
+      "status": "active"
+    },
+    {
+      "id": "m051",
+      "name": "Wawan Yunanto",
+      "degree": "PhD",
+      "year": 2017,
+      "photo": "asset/member/pp.png",
+      "status": "active"
+    },
+    {
+      "id": "m052",
+      "name": "Mohammad Iqbal",
+      "degree": "PhD",
+      "year": 2015,
+      "photo": "asset/member/pp.png",
+      "status": "graduated"
+    },
+    {
+      "id": "m053",
+      "name": "Vahid Golderzahi",
+      "degree": "PhD",
+      "year": 2014,
+      "photo": "asset/member/pp.png",
+      "status": "graduated"
+    },
+    {
+      "id": "m054",
+      "name": "Rudy Cahyadi Hario Pribadi",
+      "degree": "PhD",
+      "year": 2011,
+      "photo": "asset/member/pp.png",
+      "status": "graduated"
+    }
+  ]
+}

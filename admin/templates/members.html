@@ -1,0 +1,352 @@
+{% extends "base.html" %}
+
+{% block title %}Members{% endblock %}
+
+{% block content %}
+<div class="page-header d-flex justify-content-between align-items-center">
+    <div>
+        <h1><i class="fas fa-users"></i> Members 管理</h1>
+        <p class="text-muted mb-0">管理實驗室成員</p>
+    </div>
+    <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addModal">
+        <i class="fas fa-plus"></i> 新增 Member
+    </button>
+</div>
+
+<!-- Contact Person Info -->
+<div class="card mb-3">
+    <div class="card-header d-flex justify-content-between align-items-center">
+        <span><i class="fas fa-user-tie"></i> Contact Person</span>
+        <select id="contactPersonSelect" class="form-select form-select-sm w-auto">
+            <option value="">選擇 Contact Person</option>
+            {% for member in members %}
+            <option value="{{ member.id }}" {% if contact_person.name == member.name %}selected{% endif %}>
+                {{ member.name }}
+            </option>
+            {% endfor %}
+        </select>
+    </div>
+    <div class="card-body">
+        <div class="row">
+            <div class="col-md-2">
+                <img src="/{{ contact_person.photo }}" class="img-fluid rounded-circle" alt="{{ contact_person.name }}" id="contactPersonPhoto">
+            </div>
+            <div class="col-md-10">
+                <h5 id="contactPersonName">{{ contact_person.name }}</h5>
+                <p><strong>Email:</strong> <span id="contactPersonEmail">{{ contact_person.email }}</span></p>
+                <p><strong>Lab Room:</strong> {{ lab_info.room }}</p>
+                <p><strong>Lab Phone:</strong> {{ lab_info.phone }}</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="card">
+    <div class="card-header d-flex justify-content-between align-items-center">
+        <span>成員列表</span>
+        <div>
+            <select id="filterYear" class="form-select form-select-sm d-inline-block w-auto">
+                <option value="">所有年份</option>
+                {% for year in range(2025, 2010, -1) %}
+                <option value="{{ year }}">{{ year }}</option>
+                {% endfor %}
+            </select>
+            <select id="filterStatus" class="form-select form-select-sm d-inline-block w-auto ms-2">
+                <option value="">所有狀態</option>
+                <option value="active">在學中</option>
+                <option value="graduated">已畢業</option>
+            </select>
+        </div>
+    </div>
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th>照片</th>
+                        <th>姓名</th>
+                        <th>學位</th>
+                        <th>年份</th>
+                        <th>狀態</th>
+                        <th>操作</th>
+                    </tr>
+                </thead>
+                <tbody id="membersTable">
+                    {% for member in members %}
+                    <tr data-year="{{ member.year }}" data-status="{{ member.status }}">
+                        <td>
+                            <img src="/{{ member.photo }}" width="50" height="50" class="rounded-circle" alt="{{ member.name }}">
+                        </td>
+                        <td>{{ member.name }}</td>
+                        <td>{{ member.degree }}</td>
+                        <td>{{ member.year }}</td>
+                        <td>
+                            {% if member.status == 'graduated' %}
+                                <span class="badge bg-secondary"><i class="fas fa-graduation-cap"></i> 已畢業</span>
+                            {% else %}
+                                <span class="badge bg-success"><i class="fas fa-book"></i> 在學中</span>
+                            {% endif %}
+                        </td>
+                        <td>
+                            <button class="btn btn-sm btn-outline-primary edit-btn" data-id="{{ member.id }}">
+                                <i class="fas fa-edit"></i>
+                            </button>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<!-- Add/Edit Modal -->
+<div class="modal fade" id="addModal" tabindex="-1">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">新增 Member</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <form id="memberForm">
+                    <input type="hidden" id="memberId">
+                    
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">姓名 *</label>
+                            <input type="text" class="form-control" id="memberName" required>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">Email</label>
+                            <input type="email" class="form-control" id="memberEmail" placeholder="example@mail.ntust.edu.tw">
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-4 mb-3">
+                            <label class="form-label">學位 *</label>
+                            <select class="form-select" id="memberDegree" required>
+                                <option value="MS">MS</option>
+                                <option value="PhD">PhD</option>
+                            </select>
+                        </div>
+                        <div class="col-md-4 mb-3">
+                            <label class="form-label">年份 *</label>
+                            <input type="number" class="form-control" id="memberYear" required min="2000" max="2100">
+                        </div>
+                        <div class="col-md-4 mb-3">
+                            <label class="form-label">狀態 *</label>
+                            <select class="form-select" id="memberStatus" required>
+                                <option value="active">在學中</option>
+                                <option value="graduated">已畢業</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">照片</label>
+                        <input type="file" class="form-control" id="memberPhoto" accept="image/*">
+                        <input type="hidden" id="memberPhotoPath" value="asset/member/pp.png">
+                        <small class="text-muted">支援 JPG, PNG, GIF 格式，最大 16MB</small>
+                        <div id="photoPreview" class="mt-2"></div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger me-auto" id="deleteBtn" style="display: none;">
+                    <i class="fas fa-trash"></i> 刪除
+                </button>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">取消</button>
+                <button type="button" class="btn btn-primary" id="saveBtn">儲存</button>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+$(document).ready(function() {
+    // Update Contact Person
+    $('#contactPersonSelect').change(function() {
+        const memberId = $(this).val();
+        if (!memberId) return;
+
+        if (!confirm('確定要更新 Contact Person 嗎？')) {
+            // Reset to current value
+            location.reload();
+            return;
+        }
+
+        $.ajax({
+            url: '/api/contact-person',
+            method: 'PUT',
+            contentType: 'application/json',
+            data: JSON.stringify({ member_id: memberId }),
+            success: function(response) {
+                // Update UI
+                $('#contactPersonName').text(response.contact_person.name);
+                $('#contactPersonEmail').text(response.contact_person.email);
+                $('#contactPersonPhoto').attr('src', '/' + response.contact_person.photo);
+                alert('Contact Person 更新成功！');
+            },
+            error: function(xhr) {
+                alert('更新失敗：' + (xhr.responseJSON?.error || '未知錯誤'));
+                location.reload();
+            }
+        });
+    });
+
+    // Filters
+    $('#filterYear, #filterStatus').change(function() {
+        const year = $('#filterYear').val();
+        const status = $('#filterStatus').val();
+
+        $('#membersTable tr').each(function() {
+            const $row = $(this);
+            const rowYear = $row.data('year').toString();
+            const rowStatus = $row.data('status');
+
+            let show = true;
+            if (year && rowYear !== year) show = false;
+            if (status && rowStatus !== status) show = false;
+
+            $row.toggle(show);
+        });
+    });
+
+    // Photo upload preview
+    $('#memberPhoto').change(function() {
+        const file = this.files[0];
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                $('#photoPreview').html(`<img src="${e.target.result}" class="img-thumbnail" style="max-width: 200px;">`);
+            };
+            reader.readAsDataURL(file);
+        }
+    });
+
+    // Save member
+    $('#saveBtn').click(function() {
+        const photoFile = $('#memberPhoto')[0].files[0];
+
+        // Upload photo first if selected
+        if (photoFile) {
+            const formData = new FormData();
+            formData.append('file', photoFile);
+            formData.append('type', 'member');
+
+            $.ajax({
+                url: '/upload',
+                method: 'POST',
+                data: formData,
+                processData: false,
+                contentType: false,
+                success: function(response) {
+                    $('#memberPhotoPath').val(response.path);
+                    saveMemberData();
+                },
+                error: function(xhr) {
+                    alert('照片上傳失敗：' + xhr.responseJSON.error);
+                }
+            });
+        } else {
+            saveMemberData();
+        }
+    });
+
+    function saveMemberData() {
+        const memberData = {
+            name: $('#memberName').val(),
+            degree: $('#memberDegree').val(),
+            year: parseInt($('#memberYear').val()),
+            status: $('#memberStatus').val(),
+            photo: $('#memberPhotoPath').val()
+        };
+
+        const email = $('#memberEmail').val();
+        if (email) {
+            memberData.email = email;
+        }
+
+        const memberId = $('#memberId').val();
+        const url = memberId ? `/api/members/${memberId}` : '/api/members';
+        const method = memberId ? 'PUT' : 'POST';
+
+        if (memberId) {
+            memberData.id = memberId;
+        }
+
+        $.ajax({
+            url: url,
+            method: method,
+            contentType: 'application/json',
+            data: JSON.stringify(memberData),
+            success: function(response) {
+                alert('儲存成功！');
+                location.reload();
+            },
+            error: function(xhr) {
+                alert('儲存失敗：' + xhr.responseJSON.error);
+            }
+        });
+    }
+
+    // Delete member (from modal)
+    $('#deleteBtn').click(function() {
+        if (!confirm('確定要刪除此成員嗎？')) return;
+
+        const memberId = $('#memberId').val();
+        $.ajax({
+            url: `/api/members/${memberId}`,
+            method: 'DELETE',
+            success: function() {
+                alert('刪除成功！');
+                location.reload();
+            },
+            error: function(xhr) {
+                alert('刪除失敗：' + xhr.responseJSON.error);
+            }
+        });
+    });
+
+    // Edit member
+    $('.edit-btn').click(function() {
+        const memberId = $(this).data('id');
+        $.get('/api/members', function(data) {
+            const member = data.members.find(m => m.id === memberId);
+            if (member) {
+                $('#memberId').val(member.id);
+                $('#memberName').val(member.name);
+                $('#memberEmail').val(member.email || '');
+                $('#memberDegree').val(member.degree);
+                $('#memberYear').val(member.year);
+                $('#memberStatus').val(member.status);
+                $('#memberPhotoPath').val(member.photo);
+
+                if (member.photo) {
+                    $('#photoPreview').html(`<img src="/${member.photo}" class="img-thumbnail" style="max-width: 200px;">`);
+                }
+
+                $('.modal-title').text('編輯 Member');
+                $('#deleteBtn').show(); // 顯示刪除按鈕
+                $('#addModal').modal('show');
+            }
+        });
+    });
+
+    // Reset form
+    $('#addModal').on('hidden.bs.modal', function() {
+        $('#memberForm')[0].reset();
+        $('#memberId').val('');
+        $('#memberPhotoPath').val('asset/member/pp.png');
+        $('#photoPreview').html('');
+        $('.modal-title').text('新增 Member');
+        $('#deleteBtn').hide(); // 隱藏刪除按鈕
+    });
+});
+</script>
+{% endblock %}
+

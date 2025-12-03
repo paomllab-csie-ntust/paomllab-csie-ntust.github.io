@@ -1,0 +1,108 @@
+{% extends "base.html" %}
+
+{% block title %}Dashboard{% endblock %}
+
+{% block content %}
+<div class="page-header">
+    <h1><i class="fas fa-home"></i> Dashboard</h1>
+    <p class="text-muted mb-0">Laboratory Website 管理系統總覽</p>
+</div>
+
+<div class="row">
+    <!-- Publications Card -->
+    <div class="col-md-4">
+        <div class="card">
+            <div class="card-body text-center">
+                <div class="mb-3">
+                    <i class="fas fa-book fa-3x text-primary"></i>
+                </div>
+                <h3 class="mb-1">{{ stats.publications }}</h3>
+                <p class="text-muted mb-3">Publications</p>
+                <a href="{{ url_for('publications') }}" class="btn btn-primary btn-sm">
+                    <i class="fas fa-edit"></i> 管理出版物
+                </a>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Members Card -->
+    <div class="col-md-4">
+        <div class="card">
+            <div class="card-body text-center">
+                <div class="mb-3">
+                    <i class="fas fa-users fa-3x text-success"></i>
+                </div>
+                <h3 class="mb-1">{{ stats.members }}</h3>
+                <p class="text-muted mb-3">Members ({{ stats.graduated }} 已畢業)</p>
+                <a href="{{ url_for('members') }}" class="btn btn-success btn-sm">
+                    <i class="fas fa-edit"></i> 管理成員
+                </a>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Events Card -->
+    <div class="col-md-4">
+        <div class="card">
+            <div class="card-body text-center">
+                <div class="mb-3">
+                    <i class="fas fa-calendar fa-3x text-warning"></i>
+                </div>
+                <h3 class="mb-1">{{ stats.events }}</h3>
+                <p class="text-muted mb-3">Events</p>
+                <a href="{{ url_for('events') }}" class="btn btn-warning btn-sm">
+                    <i class="fas fa-edit"></i> 管理活動
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row mt-4">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-header">
+                <i class="fas fa-info-circle"></i> 快速指南
+            </div>
+            <div class="card-body">
+                <h5>如何使用此管理系統</h5>
+                <ol>
+                    <li><strong>管理出版物</strong>：點擊 "Publications" 新增、編輯或刪除研究論文</li>
+                    <li><strong>管理成員</strong>：點擊 "Members" 管理實驗室成員資訊和畢業狀態</li>
+                    <li><strong>管理活動</strong>：點擊 "Events" 新增或編輯實驗室活動</li>
+                    <li><strong>上傳圖片</strong>：在各個管理頁面中可以上傳成員照片或活動照片</li>
+                    <li><strong>預覽網站</strong>：點擊側邊欄的 "View Website" 查看前端網站效果</li>
+                </ol>
+                
+                <div class="alert alert-info mt-3">
+                    <i class="fas fa-lightbulb"></i> <strong>提示：</strong>
+                    所有修改會即時儲存到 JSON 文件中。記得定期將更新推送到 GitHub 以更新線上網站。
+                </div>
+                
+                <div class="alert alert-warning mt-3">
+                    <i class="fas fa-exclamation-triangle"></i> <strong>注意：</strong>
+                    此管理系統僅供本地使用，請勿部署到公開網路。
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row mt-4">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-header">
+                <i class="fas fa-terminal"></i> Git 操作指令
+            </div>
+            <div class="card-body">
+                <p>完成資料更新後，使用以下指令將變更推送到 GitHub：</p>
+                <pre class="bg-dark text-light p-3 rounded"><code>cd /mnt/e/project/newPao
+git add dataset/*.json
+git commit -m "Update data: [描述你的更新]"
+git push origin main</code></pre>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+

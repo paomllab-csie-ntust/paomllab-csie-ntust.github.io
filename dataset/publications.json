@@ -1,0 +1,290 @@
+{
+  "publications": [
+    {
+      "id": "j13",
+      "type": "journal",
+      "authors": "Hanjuan Huang, Hsing-Kuo Pao",
+      "title": "A unified noise and watermark removal from information bottleneck-based modeling",
+      "venue": "Neural Networks",
+      "volume": "181",
+      "pages": "106853",
+      "year": 2025,
+      "highlight_author": "Hsing-Kuo Pao"
+    },
+    {
+      "id": "j12",
+      "type": "journal",
+      "authors": "Vahid Golderzahi, Hsing-Kuo Pao",
+      "title": "Revenue forecasting in smart retail based on customer clustering analysis",
+      "venue": "Internet of Things",
+      "volume": "27",
+      "pages": "101286",
+      "year": 2024,
+      "highlight_author": "Hsing-Kuo Pao"
+    },
+    {
+      "id": "j11",
+      "type": "journal",
+      "authors": "Mohammad Iqbal, Adila Sekarrati Dwi Prayitno, Hsing-Kuo Pao, Imam Mukhlash",
+      "title": "Mining fuzzy local periodic activity pattern for Smart home applications",
+      "venue": "Knowledge-Based Systems",
+      "volume": "293",
+      "pages": "111629",
+      "year": 2024,
+      "highlight_author": "Hsing-Kuo Pao"
+    },
+    {
+      "id": "j10",
+      "type": "journal",
+      "authors": "Zolnamar Dorjsembe, Hsing-Kuo Pao, Sodtavilan Odonchimed, Furen Xiao",
+      "title": "Conditional Diffusion Models for Semantic 3D Brain MRI Synthesis",
+      "venue": "IEEE Journal of Biomedical and Health Informatics",
+      "volume": "28(7)",
+      "pages": "4084-4093",
+      "year": 2024,
+      "highlight_author": "Hsing-Kuo Pao"
+    },
+    {
+      "id": "j9",
+      "type": "journal",
+      "authors": "Mohammad Iqbal, Hsing-Kuo Pao",
+      "title": "Mining non-redundant distinguishing subsequence for trip destination forecasting",
+      "venue": "Knowledge-Based Systems",
+      "volume": "211",
+      "pages": "106519",
+      "year": 2021,
+      "highlight_author": "Hsing-Kuo Pao"
+    },
+    {
+      "id": "j8",
+      "type": "journal",
+      "authors": "Hsing-Kuo Pao, Fong-Fuei Lee, Yuh-Jye Lee",
+      "title": "Dealing with Interleaved Event Inputs for Intrusion Detection",
+      "venue": "Journal of Information Science and Engineering",
+      "volume": "35(1)",
+      "pages": "223-242",
+      "year": 2019,
+      "highlight_author": "Hsing-Kuo Pao"
+    },
+    {
+      "id": "j7",
+      "type": "journal",
+      "authors": "Chih-Hung Lin, Hsing-Kuo Pao, Jian-Wei Liao",
+      "title": "Efficient dynamic malware analysis using virtual time control mechanics",
+      "venue": "Computers & Security",
+      "volume": "73",
+      "pages": "359-373",
+      "year": 2018,
+      "highlight_author": "Hsing-Kuo Pao"
+    },
+    {
+      "id": "j6",
+      "type": "journal",
+      "authors": "Rudy Cahyadi Hario Pribadi, Hsing-Kuo Pao",
+      "title": "Sparse tree structured representation for re-identification",
+      "venue": "Pattern Recognition",
+      "volume": "60",
+      "pages": "394-404",
+      "year": 2016,
+      "highlight_author": "Hsing-Kuo Pao"
+    },
+    {
+      "id": "j5",
+      "type": "journal",
+      "authors": "Kai-Lung Hua, Ge-Ming Chiu, Hsing-Kuo Pao, Yi-Chi Cheng",
+      "title": "An efficient scheduling algorithm for scalable video streaming over P2P networks",
+      "venue": "Computer Networks",
+      "volume": "57(14)",
+      "pages": "2856-2868",
+      "year": 2013,
+      "highlight_author": "Hsing-Kuo Pao"
+    },
+    {
+      "id": "j4",
+      "type": "journal",
+      "authors": "Hsing-Kuo Pao, Ching-Hao Mao, Hahn-Ming Lee, Chi-Dong Chen, Christos Faloutsos",
+      "title": "An Intrinsic Graphical Signature Based on Alert Correlation Analysis for Intrusion Detection",
+      "venue": "Journal of Information Science and Engineering",
+      "volume": "28(2)",
+      "pages": "243-262",
+      "year": 2012,
+      "highlight_author": "Hsing-Kuo Pao"
+    },
+    {
+      "id": "j3",
+      "type": "journal",
+      "authors": "Hsing-Kuo Pao, Junaidillah Fadlil, Hong-Yi Lin, Kuan-Ta Chen",
+      "title": "Trajectory analysis for user verification and recognition",
+      "venue": "Knowledge-Based Systems",
+      "volume": "34",
+      "pages": "81-90",
+      "year": 2012,
+      "highlight_author": "Hsing-Kuo Pao"
+    },
+    {
+      "id": "j2",
+      "type": "journal",
+      "authors": "Chien-Chung Chang, Hsing-Kuo Pao, Yuh-Jye Lee",
+      "title": "An RSVM based two-teachers-one-student semi-supervised learning algorithm",
+      "venue": "Neural Networks",
+      "volume": "25",
+      "pages": "57-69",
+      "year": 2012,
+      "highlight_author": "Hsing-Kuo Pao"
+    },
+    {
+      "id": "j1",
+      "type": "journal",
+      "authors": "Hsing-Kuo Pao, Kuan-Ta Chen, Hong-Chung Chang",
+      "title": "Game Bot Detection via Avatar Trajectory Analysis",
+      "venue": "IEEE Transactions on Computational Intelligence and AI in Games",
+      "volume": "2(3)",
+      "pages": "162-175",
+      "year": 2010,
+      "highlight_author": "Hsing-Kuo Pao"
+    },
+    {
+      "type": "conference",
+      "authors": "Euhid Aman, Esteban Carlin, Hsing-Kuo Kenneth Pao, Giovanni Beltrame, Ghaluh Indah Permata Sari, Yie-Tarng Chen",
+      "title": "BitMar: Low-Bit Multimodal Fusion with Episodic Memory for Edge Devices",
+      "venue": "BabyLM Workshop",
+      "year": 2025,
+      "highlight_author": "Hsing-Kuo Kenneth Pao",
+      "location": "Suzhou, China",
+      "date": "",
+      "id": "c41"
+    },
+    {
+      "id": "c40",
+      "type": "conference",
+      "authors": "Zolnamar Dorjsembe, Hsing-Kuo Pao, Furen Xiao",
+      "title": "Polyp-DDPM: Diffusion-Based Semantic Polyp Synthesis for Enhanced Segmentation",
+      "venue": "2024 46th Annual International Conference of the IEEE Engineering in Medicine and Biology Society (EMBC 2024)",
+      "location": "Orlando, Florida, USA",
+      "date": "May 28–June 1, 2024",
+      "year": 2024,
+      "highlight_author": "Hsing-Kuo Pao"
+    },
+    {
+      "id": "c39",
+      "type": "conference",
+      "authors": "Yueh-Lin Chung, Hsing-Kuo Pao",
+      "title": "Density-Based Prototypical Contrastive Learning on Visual Representations",
+      "venue": "2023 IEEE International Conference on Big Data (IEEE BigData 2023)",
+      "location": "Seattle, WA, USA",
+      "date": "Dec. 10–13, 2023",
+      "year": 2023,
+      "highlight_author": "Hsing-Kuo Pao"
+    },
+    {
+      "id": "c38",
+      "type": "conference",
+      "authors": "Tze-Qian Eng, Hsing-Kuo Pao, Chi-Chen Liao",
+      "title": "Self-supervised Federated Learning for Anomaly Detection",
+      "venue": "2023 IEEE International Conference on Big Data (IEEE BigData 2023)",
+      "location": "Seattle, WA, USA",
+      "date": "Dec. 10–13, 2023",
+      "year": 2023,
+      "highlight_author": "Hsing-Kuo Pao"
+    },
+    {
+      "id": "c37",
+      "type": "conference",
+      "authors": "Hanjuan Huang, Hsuan-Ting Peng, Hsing-Kuo Pao",
+      "title": "Fake News Detection via Sentiment Neutralization",
+      "venue": "2023 IEEE International Conference on Big Data (IEEE BigData 2023)",
+      "location": "Seattle, WA, USA",
+      "date": "Dec. 10–13, 2023",
+      "year": 2023,
+      "highlight_author": "Hsing-Kuo Pao"
+    },
+    {
+      "id": "c36",
+      "type": "conference",
+      "authors": "Mohammad Iqbal, Rosita Laili Udhiah, Tsamarah Rana Nugraha, Hsing-Kuo Pao",
+      "title": "ASAGeR: Automated Short Answer Grading Regressor via Sentence Simplification",
+      "venue": "2023 IEEE International Conference on Knowledge Graph (ICKG 2023)",
+      "location": "Shanghai, China",
+      "date": "Dec. 1-2, 2023",
+      "year": 2023,
+      "highlight_author": "Hsing-Kuo Pao"
+    },
+    {
+      "id": "c35",
+      "type": "conference",
+      "authors": "Mohammad Iqbal, Fitria Urbach, Hsing-Kuo Pao, Anggraini Dwi Sensusiati, Nurul Hidayat, Imam Mukhlash",
+      "title": "Pseudo slicer on three dimensional brain tumor segmentation",
+      "venue": "2022 IEEE International Conference on Big Data (IEEE BigData 2022)",
+      "location": "Osaka, Japan",
+      "date": "Dec. 17–20, 2022",
+      "year": 2022,
+      "highlight_author": "Hsing-Kuo Pao"
+    },
+    {
+      "id": "c34",
+      "type": "conference",
+      "authors": "Wawan Yunanto, Hsing-Kuo Pao",
+      "title": "User Behaviour Risk Evaluation in Zero Trust Architecture Environment",
+      "venue": "2022 IEEE World Forum on Internet of Things (WF-IoT 2022)",
+      "location": "Yokohama, Kanagawa Japan",
+      "date": "Oct 26 - Nov 11, 2022",
+      "year": 2022,
+      "highlight_author": "Hsing-Kuo Pao"
+    },
+    {
+      "id": "c33",
+      "type": "conference",
+      "authors": "Pei-Cheng Tu, Hsing-Kuo Pao",
+      "title": "A Dropout Style Model Augmentation for Cross Domain Few-Shot Learning",
+      "venue": "2021 IEEE International Conference on Big Data (IEEE BigData 2021)",
+      "location": "Orlando, FL, USA",
+      "date": "Dec. 15–18, 2021",
+      "year": 2021,
+      "highlight_author": "Hsing-Kuo Pao"
+    },
+    {
+      "id": "c32",
+      "type": "conference",
+      "authors": "Zhiye Fu, Hsing-Kuo Pao, Jiabin He",
+      "title": "Active Learning with Numerical Feature Annotation",
+      "venue": "2021 IEEE International Conference on Big Data (IEEE BigData 2021)",
+      "location": "Orlando, FL, USA",
+      "date": "Dec. 15–18, 2021",
+      "year": 2021,
+      "highlight_author": "Hsing-Kuo Pao"
+    },
+    {
+      "id": "b1",
+      "type": "book",
+      "authors": "Y.-C. Chang, Y.-J. Lee, H.-K. Pao, M.-H. Lee and S.-Y. Huang",
+      "title": "Data Visualization via Kernel Machines",
+      "venue": "Handbook of Computational Statistics (Volume III), Data Visualization",
+      "editors": "C.-H. Chen, W. Hardle and A. Unwin (editors)",
+      "publisher": "Springer-Verlag, New York",
+      "year": 2006,
+      "highlight_author": "H.-K. Pao"
+    },
+    {
+      "id": "b2",
+      "type": "book",
+      "authors": "Y.-J. Lee, Y-R. Yeh and H.-K. Pao",
+      "title": "Introduction to Support Vector Machines and their Applications in Bankruptcy Prognosis",
+      "venue": "Handbook of Computational Finance, Data Visualization",
+      "editors": "J.-C. Duan, J. E. Gentle, and W. Hardle (editors)",
+      "publisher": "Springer-Verlag",
+      "year": 2010,
+      "highlight_author": "H.-K. Pao"
+    },
+    {
+      "id": "c31",
+      "type": "conference",
+      "authors": "Chin-Feng Yu, Hsing-Kuo Pao",
+      "title": "Virtual Adversarial Active Learning",
+      "venue": "2020 IEEE International Conference on Big Data (IEEE BigData 2020)",
+      "location": "Atlanta, GA, USA",
+      "date": "Dec. 10–13, 2020",
+      "year": 2020,
+      "highlight_author": "Hsing-Kuo Pao"
+    }
+  ]
+}

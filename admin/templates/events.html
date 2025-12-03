@@ -1,0 +1,251 @@
+{% extends "base.html" %}
+
+{% block title %}Events{% endblock %}
+
+{% block content %}
+<div class="page-header d-flex justify-content-between align-items-center">
+    <div>
+        <h1><i class="fas fa-calendar"></i> Events 管理</h1>
+        <p class="text-muted mb-0">管理實驗室活動</p>
+    </div>
+    <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addModal">
+        <i class="fas fa-plus"></i> 新增 Event
+    </button>
+</div>
+
+<div class="card">
+    <div class="card-header">
+        活動列表
+    </div>
+    <div class="card-body">
+        <div class="row" id="eventsGrid">
+            {% for event in events %}
+            <div class="col-md-4 mb-4">
+                <div class="card h-100">
+                    <img src="/{{ event.photo }}" class="card-img-top" alt="{{ event.title }}" style="height: 200px; object-fit: cover;">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ event.title }}</h5>
+                        <p class="card-text">
+                            <small class="text-muted">
+                                <i class="fas fa-calendar"></i> {{ event.date_display }}
+                            </small>
+                        </p>
+                        {% if event.description %}
+                        <p class="card-text">{{ event.description[:100] }}...</p>
+                        {% endif %}
+                    </div>
+                    <div class="card-footer bg-white">
+                        <button class="btn btn-sm btn-outline-primary edit-btn" data-id="{{ event.id }}">
+                            <i class="fas fa-edit"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+
+<!-- Add/Edit Modal -->
+<div class="modal fade" id="addModal" tabindex="-1">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">新增 Event</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <form id="eventForm">
+                    <input type="hidden" id="eventId">
+                    
+                    <div class="mb-3">
+                        <label class="form-label">標題 *</label>
+                        <input type="text" class="form-control" id="eventTitle" required>
+                    </div>
+                    
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">日期 (YYYY-MM-DD) *</label>
+                            <input type="date" class="form-control" id="eventDate" required>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">顯示日期 *</label>
+                            <input type="text" class="form-control" id="eventDateDisplay" required 
+                                   placeholder="例如: 2024/01/15">
+                        </div>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label class="form-label">描述</label>
+                        <textarea class="form-control" id="eventDescription" rows="3"></textarea>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label class="form-label">分類</label>
+                        <input type="text" class="form-control" id="eventCategory" placeholder="例如: team-building">
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label class="form-label">照片 *</label>
+                        <input type="file" class="form-control" id="eventPhoto" accept="image/*">
+                        <input type="hidden" id="eventPhotoPath">
+                        <small class="text-muted">支援 JPG, PNG, GIF 格式，最大 16MB</small>
+                        <div id="photoPreview" class="mt-2"></div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger me-auto" id="deleteBtn" style="display: none;">
+                    <i class="fas fa-trash"></i> 刪除
+                </button>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">取消</button>
+                <button type="button" class="btn btn-primary" id="saveBtn">儲存</button>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+$(document).ready(function() {
+    // Photo upload preview
+    $('#eventPhoto').change(function() {
+        const file = this.files[0];
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                $('#photoPreview').html(`<img src="${e.target.result}" class="img-thumbnail" style="max-width: 300px;">`);
+            };
+            reader.readAsDataURL(file);
+        }
+    });
+    
+    // Save event
+    $('#saveBtn').click(function() {
+        const photoFile = $('#eventPhoto')[0].files[0];
+        const eventId = $('#eventId').val();
+        
+        // For edit, photo is optional
+        if (photoFile || !eventId) {
+            if (!photoFile && !eventId) {
+                alert('請選擇照片');
+                return;
+            }
+            
+            if (photoFile) {
+                const formData = new FormData();
+                formData.append('file', photoFile);
+                formData.append('type', 'event');
+                
+                $.ajax({
+                    url: '/upload',
+                    method: 'POST',
+                    data: formData,
+                    processData: false,
+                    contentType: false,
+                    success: function(response) {
+                        $('#eventPhotoPath').val(response.path);
+                        saveEventData();
+                    },
+                    error: function(xhr) {
+                        alert('照片上傳失敗：' + xhr.responseJSON.error);
+                    }
+                });
+            } else {
+                saveEventData();
+            }
+        } else {
+            saveEventData();
+        }
+    });
+
+    function saveEventData() {
+        const eventData = {
+            title: $('#eventTitle').val(),
+            date: $('#eventDate').val(),
+            date_display: $('#eventDateDisplay').val(),
+            description: $('#eventDescription').val(),
+            category: $('#eventCategory').val() || 'general',
+            photo: $('#eventPhotoPath').val()
+        };
+
+        const eventId = $('#eventId').val();
+        const url = eventId ? `/api/events/${eventId}` : '/api/events';
+        const method = eventId ? 'PUT' : 'POST';
+
+        if (eventId) {
+            eventData.id = eventId;
+        }
+
+        $.ajax({
+            url: url,
+            method: method,
+            contentType: 'application/json',
+            data: JSON.stringify(eventData),
+            success: function(response) {
+                alert('儲存成功！');
+                location.reload();
+            },
+            error: function(xhr) {
+                alert('儲存失敗：' + xhr.responseJSON.error);
+            }
+        });
+    }
+
+    // Delete event (from modal)
+    $('#deleteBtn').click(function() {
+        if (!confirm('確定要刪除此活動嗎？')) return;
+
+        const eventId = $('#eventId').val();
+        $.ajax({
+            url: `/api/events/${eventId}`,
+            method: 'DELETE',
+            success: function() {
+                alert('刪除成功！');
+                location.reload();
+            },
+            error: function(xhr) {
+                alert('刪除失敗：' + xhr.responseJSON.error);
+            }
+        });
+    });
+
+    // Edit event
+    $('.edit-btn').click(function() {
+        const eventId = $(this).data('id');
+        $.get('/api/events', function(data) {
+            const event = data.events.find(e => e.id === eventId);
+            if (event) {
+                $('#eventId').val(event.id);
+                $('#eventTitle').val(event.title);
+                $('#eventDate').val(event.date);
+                $('#eventDateDisplay').val(event.date_display);
+                $('#eventDescription').val(event.description || '');
+                $('#eventCategory').val(event.category || '');
+                $('#eventPhotoPath').val(event.photo);
+
+                if (event.photo) {
+                    $('#photoPreview').html(`<img src="/${event.photo}" class="img-thumbnail" style="max-width: 300px;">`);
+                }
+
+                $('.modal-title').text('編輯 Event');
+                $('#deleteBtn').show(); // 顯示刪除按鈕
+                $('#addModal').modal('show');
+            }
+        });
+    });
+
+    // Reset form
+    $('#addModal').on('hidden.bs.modal', function() {
+        $('#eventForm')[0].reset();
+        $('#eventId').val('');
+        $('#eventPhotoPath').val('');
+        $('#photoPreview').html('');
+        $('.modal-title').text('新增 Event');
+        $('#deleteBtn').hide(); // 隱藏刪除按鈕
+    });
+});
+</script>
+{% endblock %}
+
