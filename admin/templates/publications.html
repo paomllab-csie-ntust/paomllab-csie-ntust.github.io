@@ -59,9 +59,17 @@
         <h1><i class="fas fa-book"></i> Publications 管理</h1>
         <p class="text-muted mb-0">管理研究出版物</p>
     </div>
-    <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addModal">
-        <i class="fas fa-plus"></i> 新增 Publication
-    </button>
+    <div>
+        <button class="btn btn-info me-2" id="sortBtn">
+            <i class="fas fa-sort-amount-down"></i> 重新排序
+        </button>
+        <button class="btn btn-success me-2" id="crawlBtn">
+            <i class="fas fa-spider"></i> 爬蟲更新
+        </button>
+        <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addModal">
+            <i class="fas fa-plus"></i> 新增 Publication
+        </button>
+    </div>
 </div>
 
 <div class="card">
@@ -576,6 +584,81 @@ $(document).ready(function() {
         $('#pubId').val('');
         $('.modal-title').text('新增 Publication');
         $('#deleteBtn').hide(); // 隱藏刪除按鈕
+    });
+
+    // Sort publications
+    $('#sortBtn').click(function() {
+        const btn = $(this);
+        const originalHtml = btn.html();
+
+        if (!confirm('確定要重新排序所有出版物嗎？\n排序規則：手動新增的在最上面，然後按 ID 從大到小排序。')) {
+            return;
+        }
+
+        // Disable button and show loading
+        btn.prop('disabled', true);
+        btn.html('<i class="fas fa-spinner fa-spin"></i> 排序中...');
+
+        $.ajax({
+            url: '/api/publications/sort',
+            method: 'POST',
+            success: function(response) {
+                btn.prop('disabled', false);
+                btn.html(originalHtml);
+
+                if (response.success) {
+                    alert('排序完成！');
+                    location.reload();
+                } else {
+                    alert('排序失敗：' + (response.error || '未知錯誤'));
+                }
+            },
+            error: function(xhr) {
+                btn.prop('disabled', false);
+                btn.html(originalHtml);
+                alert('排序失敗：' + (xhr.responseJSON?.error || '網路錯誤'));
+            }
+        });
+    });
+
+    // Crawl DBLP
+    $('#crawlBtn').click(function() {
+        const btn = $(this);
+        const originalHtml = btn.html();
+
+        if (!confirm('確定要從 DBLP 爬取最新的出版物資料嗎？\n這可能需要幾秒鐘時間。')) {
+            return;
+        }
+
+        // Disable button and show loading
+        btn.prop('disabled', true);
+        btn.html('<i class="fas fa-spinner fa-spin"></i> 爬取中...');
+
+        $.ajax({
+            url: '/api/publications/crawl',
+            method: 'POST',
+            success: function(response) {
+                btn.prop('disabled', false);
+                btn.html(originalHtml);
+
+                if (response.success) {
+                    let msg = `爬取完成！\n新增：${response.added} 筆`;
+                    if (response.updated) {
+                        msg += `\n更新：${response.updated} 筆`;
+                    }
+                    msg += `\n已存在（跳過）：${response.skipped} 筆`;
+                    alert(msg);
+                    location.reload();
+                } else {
+                    alert('爬取失敗：' + (response.error || '未知錯誤'));
+                }
+            },
+            error: function(xhr) {
+                btn.prop('disabled', false);
+                btn.html(originalHtml);
+                alert('爬取失敗：' + (xhr.responseJSON?.error || '網路錯誤'));
+            }
+        });
     });
 });
 </script>

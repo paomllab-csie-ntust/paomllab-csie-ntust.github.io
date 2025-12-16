@@ -86,10 +86,15 @@ function renderPublication(pub) {
     if (pub.pages) html += ` pp. ${pub.pages},`;
     html += ` ${pub.year}`;
   } else if (pub.type === 'conference') {
-    // Conference 格式
+    // Conference 格式：保持原本格式
     html += `<br>`;
     if (pub.location) html += `${pub.location}, `;
-    if (pub.date) html += `${pub.date}.`;
+    // 如果有日期則顯示日期，否則顯示年份
+    if (pub.date) {
+      html += `${pub.date}.`;
+    } else {
+      html += `${pub.year}.`;
+    }
   } else if (pub.type === 'book') {
     // Book 格式
     html += `<br>`;
