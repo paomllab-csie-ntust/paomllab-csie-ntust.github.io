@@ -151,6 +151,12 @@
                     </div>
 
                     <div class="mb-3">
+                        <label class="form-label">個人網站連結</label>
+                        <input type="url" class="form-control" id="memberWebsite" placeholder="https://example.com">
+                        <small class="text-muted">選填，將顯示在成員學位前方</small>
+                    </div>
+
+                    <div class="mb-3">
                         <label class="form-label">照片</label>
                         <input type="file" class="form-control" id="memberPhoto" accept="image/*">
                         <input type="hidden" id="memberPhotoPath" value="asset/member/pp.png">
@@ -282,6 +288,11 @@ $(document).ready(function() {
             memberData.linkedin = linkedin;
         }
 
+        const website = $('#memberWebsite').val();
+        if (website) {
+            memberData.website = website;
+        }
+
         const memberId = $('#memberId').val();
         const url = memberId ? `/api/members/${memberId}` : '/api/members';
         const method = memberId ? 'PUT' : 'POST';
@@ -333,6 +344,7 @@ $(document).ready(function() {
                 $('#memberName').val(member.name);
                 $('#memberEmail').val(member.email || '');
                 $('#memberLinkedin').val(member.linkedin || '');
+                $('#memberWebsite').val(member.website || '');
                 $('#memberDegree').val(member.degree);
                 $('#memberYear').val(member.year);
                 $('#memberStatus').val(member.status);

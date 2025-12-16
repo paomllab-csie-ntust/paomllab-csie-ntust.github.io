@@ -591,7 +591,20 @@ def add_member():
     max_num = max([int(id[1:]) for id in existing_ids], default=0)
     new_member['id'] = f"m{max_num + 1:03d}"
 
-    data['members'].append(new_member)
+    # 找到同年份的第一個成員的位置
+    new_year = new_member['year']
+    insert_index = None
+
+    for i, member in enumerate(data['members']):
+        if member['year'] == new_year:
+            insert_index = i
+            break
+
+    # 如果找到同年份的成員，插入到該位置；否則加到最後
+    if insert_index is not None:
+        data['members'].insert(insert_index, new_member)
+    else:
+        data['members'].append(new_member)
 
     if save_json('members.json', data):
         return jsonify({'success': True, 'member': new_member})

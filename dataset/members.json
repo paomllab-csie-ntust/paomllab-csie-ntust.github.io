@@ -10,6 +10,110 @@
   },
   "members": [
     {
+      "name": "Le Trung Kien",
+      "degree": "MS",
+      "year": 2025,
+      "status": "active",
+      "photo": "asset/member/pp.png",
+      "id": "m067"
+    },
+    {
+      "name": "Dinh Ngoc Lan ",
+      "degree": "MS",
+      "year": 2025,
+      "status": "active",
+      "photo": "asset/member/pp.png",
+      "id": "m066"
+    },
+    {
+      "name": "吳禹辰",
+      "degree": "MS",
+      "year": 2025,
+      "status": "active",
+      "photo": "asset/member/pp.png",
+      "id": "m065"
+    },
+    {
+      "name": "Aurelio Naufal Effendy",
+      "degree": "MS",
+      "year": 2025,
+      "status": "active",
+      "photo": "asset/member/pp.png",
+      "id": "m064"
+    },
+    {
+      "name": "Nguyen Duc Thien ",
+      "degree": "MS",
+      "year": 2025,
+      "status": "active",
+      "photo": "asset/member/pp.png",
+      "id": "m063"
+    },
+    {
+      "name": "Huu Thuan Thang Nguyen",
+      "degree": "MS",
+      "year": 2025,
+      "status": "active",
+      "photo": "asset/member/pp.png",
+      "id": "m062"
+    },
+    {
+      "name": "鍾唐福",
+      "degree": "MS",
+      "year": 2025,
+      "status": "active",
+      "photo": "asset/member/pp.png",
+      "id": "m061"
+    },
+    {
+      "name": "莊書鈞",
+      "degree": "MS",
+      "year": 2025,
+      "status": "active",
+      "photo": "asset/member/pp.png",
+      "id": "m060"
+    },
+    {
+      "name": "楊羿宸",
+      "degree": "MS",
+      "year": 2025,
+      "status": "active",
+      "photo": "asset/member/pp.png",
+      "id": "m059"
+    },
+    {
+      "name": "吳建凱",
+      "degree": "MS",
+      "year": 2025,
+      "status": "active",
+      "photo": "asset/member/pp.png",
+      "id": "m058"
+    },
+    {
+      "name": "許佳媛",
+      "degree": "MS",
+      "year": 2025,
+      "status": "active",
+      "photo": "asset/member/pp.png",
+      "id": "m057"
+    },
+    {
+      "name": "賴世偉",
+      "degree": "MS",
+      "year": 2025,
+      "status": "active",
+      "photo": "asset/member/pp.png",
+      "id": "m056"
+    },
+    {
+      "name": "黃喜珍",
+      "degree": "MS",
+      "year": 2025,
+      "status": "active",
+      "photo": "asset/member/pp.png",
+      "id": "m055"
+    },
+    {
       "id": "m000",
       "name": "林品臻",
       "degree": "MS",
@@ -24,6 +128,7 @@
       "status": "active",
       "photo": "asset/member/Ting-Feng Ho.png",
       "linkedin": "https://www.linkedin.com/in/%E9%9C%86%E9%8B%92-%E4%BD%95-8a403017a/",
+      "website": "https://www.leonardo-classroom.com/",
       "id": "m001"
     },
     {
@@ -35,12 +140,12 @@
       "status": "active"
     },
     {
-      "id": "m003",
       "name": "鄭孟恒",
       "degree": "MS",
       "year": 2024,
-      "photo": "asset/member/pp.png",
-      "status": "active"
+      "status": "active",
+      "photo": "asset/member/S__156401696.jpg",
+      "id": "m003"
     },
     {
       "id": "m004",
@@ -91,12 +196,13 @@
       "status": "active"
     },
     {
-      "id": "m010",
       "name": "Euhid Aman",
       "degree": "MS",
       "year": 2024,
+      "status": "active",
       "photo": "asset/member/Euhid Aman.jpg",
-      "status": "active"
+      "linkedin": "https://www.linkedin.com/in/euhidaman/?originalSubdomain=tw",
+      "id": "m010"
     },
     {
       "id": "m011",
@@ -449,14 +555,6 @@
       "year": 2011,
       "photo": "asset/member/pp.png",
       "status": "graduated"
-    },
-    {
-      "name": "黃喜珍",
-      "degree": "MS",
-      "year": 2025,
-      "status": "active",
-      "photo": "asset/member/pp.png",
-      "id": "m055"
     }
   ]
 }
