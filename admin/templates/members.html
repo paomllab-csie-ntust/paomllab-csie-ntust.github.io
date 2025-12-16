@@ -145,6 +145,12 @@
                     </div>
 
                     <div class="mb-3">
+                        <label class="form-label">LinkedIn 連結</label>
+                        <input type="url" class="form-control" id="memberLinkedin" placeholder="https://www.linkedin.com/in/username">
+                        <small class="text-muted">選填，將顯示在成員照片下方</small>
+                    </div>
+
+                    <div class="mb-3">
                         <label class="form-label">照片</label>
                         <input type="file" class="form-control" id="memberPhoto" accept="image/*">
                         <input type="hidden" id="memberPhotoPath" value="asset/member/pp.png">
@@ -271,6 +277,11 @@ $(document).ready(function() {
             memberData.email = email;
         }
 
+        const linkedin = $('#memberLinkedin').val();
+        if (linkedin) {
+            memberData.linkedin = linkedin;
+        }
+
         const memberId = $('#memberId').val();
         const url = memberId ? `/api/members/${memberId}` : '/api/members';
         const method = memberId ? 'PUT' : 'POST';
@@ -321,6 +332,7 @@ $(document).ready(function() {
                 $('#memberId').val(member.id);
                 $('#memberName').val(member.name);
                 $('#memberEmail').val(member.email || '');
+                $('#memberLinkedin').val(member.linkedin || '');
                 $('#memberDegree').val(member.degree);
                 $('#memberYear').val(member.year);
                 $('#memberStatus').val(member.status);

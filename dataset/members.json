@@ -1,7 +1,7 @@
 {
   "contact_person": {
     "name": "林品臻",
-    "email": "",
+    "email": "M11415054@mail.ntust.edu.tw",
     "photo": "asset/member/林品臻.jpg"
   },
   "lab_info": {
@@ -18,13 +18,13 @@
       "status": "active"
     },
     {
-      "id": "m001",
       "name": "Ting-Feng Ho",
-      "name_zh": "何霆鋒",
       "degree": "MS",
       "year": 2024,
+      "status": "active",
       "photo": "asset/member/Ting-Feng Ho.png",
-      "status": "active"
+      "linkedin": "https://www.linkedin.com/in/%E9%9C%86%E9%8B%92-%E4%BD%95-8a403017a/",
+      "id": "m001"
     },
     {
       "id": "m002",
@@ -123,12 +123,12 @@
       "status": "active"
     },
     {
-      "id": "m014",
       "name": "Diego Vazquez Gonzalez",
       "degree": "PhD",
       "year": 2023,
+      "status": "active",
       "photo": "asset/member/pp.png",
-      "status": "graduated"
+      "id": "m014"
     },
     {
       "id": "m015",
@@ -449,6 +449,14 @@
       "year": 2011,
       "photo": "asset/member/pp.png",
       "status": "graduated"
+    },
+    {
+      "name": "黃喜珍",
+      "degree": "MS",
+      "year": 2025,
+      "status": "active",
+      "photo": "asset/member/pp.png",
+      "id": "m055"
     }
   ]
 }

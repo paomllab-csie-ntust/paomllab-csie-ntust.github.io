@@ -175,15 +175,16 @@ function renderMemberYear(year, members) {
 
 function renderMember(member) {
   const graduatedIcon = member.status === 'graduated' ? '<i class="fa-solid fa-graduation-cap"></i>' : '';
+  const linkedinIcon = member.linkedin ? ` <a href="${member.linkedin}" target="_blank" rel="noopener noreferrer" style="color: #0077B5; text-decoration: none;"><i class="fa-brands fa-linkedin"></i></a>` : '';
   const displayName = member.name_zh || member.name;
-  
+
   return `
     <div class="col-6 col-md-4 col-lg-3 col-xl-2">
       <div class="div-square mt-3">
         <img class="div-square-content img-fluid hwAuto rounded-circle my-border" src="../${member.photo}">
       </div>
       <h4 class="mt-1 mb-0 text-center">${displayName}</h4>
-      <h4 class="fw-bolder mt-0 mb-3 text-center text-primary">${member.degree}${graduatedIcon}</h4>
+      <h4 class="fw-bolder mt-0 mb-3 text-center text-primary">${member.degree}${graduatedIcon}${linkedinIcon}</h4>
     </div>
   `;
 }
