@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Responsive Offset Test</title>
+  <link href="bootstrap/bootstrap.min.css" rel="stylesheet">
+  <script src="jquery-3.6.4.min.js"></script>
+  <link rel="stylesheet" type="text/css" href="style.css">
+  <style>
+    body {
+      padding-top: 0;
+    }
+    .test-section {
+      min-height: 600px;
+      padding: 40px;
+      border: 2px solid #ddd;
+      margin-bottom: 20px;
+    }
+    #Research { background: #ffe6e6; }
+    #Experience { background: #e6f3ff; }
+    #Publications { background: #e6ffe6; }
+    #Others { background: #fff3e6; }
+    
+    .debug-info {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background: rgba(0,0,0,0.8);
+      color: white;
+      padding: 15px;
+      border-radius: 8px;
+      font-family: monospace;
+      font-size: 12px;
+      z-index: 9999;
+    }
+    .debug-info div {
+      margin: 5px 0;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Catalog Navigation (模擬實際頁面) -->
+  <div class="sticky-top col-12 col-md bg-white px-0" id="catalog-out">
+    <div class="list-group text-center sticky-top mt-4" id="catalog">
+      <div class="container">
+        <div class="row">
+          
+          <div class="col-3 col-md-12">
+            <div class="row">
+              <div class="col-12 col-md-auto d-flex justify-content-center pr-md-1 pr-lg-3">
+                <a class="list-group-item list-group-item-action rounded-circle catalogIco" href="#Research" id="ResearchBtn"></a>
+              </div>
+              <div class="col-12 col-md centerVertically text-md-start px-0">Research</div>
+            </div>
+          </div>
+
+          <div class="col-3 col-md-12">
+            <div class="row mt-md-3">
+              <div class="col-12 col-md-auto d-flex justify-content-center pr-md-1 pr-lg-3">
+                <a class="list-group-item list-group-item-action rounded-circle catalogIco active" href="#Experience" id="ExperienceBtn"></a>
+              </div>
+              <div class="col-12 col-md centerVertically text-md-start px-0">Experience</div>
+            </div>
+          </div>
+
+          <div class="col-3 col-md-12">
+            <div class="row mt-md-3">
+              <div class="col-12 col-md-auto d-flex justify-content-center pr-md-1 pr-lg-3">
+                <a class="list-group-item list-group-item-action rounded-circle catalogIco" href="#Publications" id="PublicationsBtn"></a>
+              </div>
+              <div class="col-12 col-md centerVertically text-md-start px-0">Publications</div>
+            </div>
+          </div>
+
+          <div class="col-3 col-md-12">
+            <div class="row mt-md-3">
+              <div class="col-12 col-md-auto d-flex justify-content-center pr-md-1 pr-lg-3">
+                <a class="list-group-item list-group-item-action rounded-circle catalogIco" href="#Others" id="OthersBtn"></a>
+              </div>
+              <div class="col-12 col-md centerVertically text-md-start px-0">Others</div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Main Content -->
+  <div class="container-fluid">
+    <div id="Research" class="test-section">
+      <h2 class="text-primary fw-bolder">Research Area</h2>
+      <p>測試響應式 offset 功能</p>
+    </div>
+
+    <div id="Experience" class="test-section">
+      <h2 class="text-primary fw-bolder">Experience</h2>
+      <p>調整瀏覽器寬度，觀察 offset 變化</p>
+    </div>
+
+    <div id="Publications" class="test-section">
+      <h2 class="text-primary fw-bolder">Publications</h2>
+      <p>手機版 (< 768px)：使用 catalog-out 高度</p>
+      <p>桌面版 (≥ 768px)：使用固定 80px</p>
+    </div>
+
+    <div id="Others" class="test-section">
+      <h2 class="text-primary fw-bolder">Other Interesting Works</h2>
+      <p>點擊導航按鈕測試跳轉位置是否正確</p>
+    </div>
+  </div>
+
+  <!-- Debug Info -->
+  <div class="debug-info">
+    <div><strong>Debug Info</strong></div>
+    <div>Window Width: <span id="windowWidth">-</span>px</div>
+    <div>Catalog-out Height: <span id="catalogHeight">-</span>px</div>
+    <div>Current Offset: <span id="currentOffset">-</span>px</div>
+    <div>Mode: <span id="mode">-</span></div>
+  </div>
+
+  <script src="catalog-navigation.js"></script>
+  <script>
+    // 更新調試資訊
+    function updateDebugInfo() {
+      const windowWidth = $(window).width();
+      const catalogHeight = $('#catalog-out').outerHeight() || 0;
+      const isMobile = windowWidth < 768;
+      const currentOffset = isMobile ? catalogHeight : 80;
+      
+      $('#windowWidth').text(windowWidth);
+      $('#catalogHeight').text(catalogHeight);
+      $('#currentOffset').text(currentOffset);
+      $('#mode').text(isMobile ? 'Mobile' : 'Desktop');
+    }
+    
+    // 初始化
+    updateDebugInfo();
+    
+    // 視窗大小改變時更新
+    $(window).on('resize', function() {
+      updateDebugInfo();
+    });
+    
+    // 每秒更新一次（以防 catalog-out 高度變化）
+    setInterval(updateDebugInfo, 1000);
+  </script>
+
+  <script src="bootstrap/bootstrap.bundle.min.js"></script>
+</body>
+</html>
+

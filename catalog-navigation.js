@@ -11,17 +11,34 @@ $(document).ready(function() {
 
   // ==================== 配置 ====================
   const config = {
-    // 滾動偏移量（考慮固定導航欄的高度）
-    scrollOffset: 120,
     // 滾動監測的節流時間（毫秒）
     throttleDelay: 100,
     // 滾動結束判定時間（毫秒）
-    scrollEndDelay: 150
+    scrollEndDelay: 150,
+    // 桌面版偏移量（>= 768px）
+    desktopOffset: 80,
+    // 手機版使用 catalog-out 的高度
+    getMobileOffset: function() {
+      const catalogOutHeight = $('#catalog-out').outerHeight()+60 || 0;
+      return catalogOutHeight;
+    }
   };
 
   // 點擊跳轉標記（用於暫停滾動監測）
   let isClickJumping = false;
   let scrollEndTimer = null;
+
+  /**
+   * 根據螢幕尺寸獲取當前的 scrollOffset
+   */
+  function getScrollOffset() {
+    // Bootstrap 的 md 斷點是 768px
+    if ($(window).width() >= 768) {
+      return config.desktopOffset; // 桌面版：80px
+    } else {
+      return config.getMobileOffset(); // 手機版：catalog-out 的高度
+    }
+  }
 
   // ==================== 1. 點擊跳轉功能 ====================
 
@@ -41,8 +58,9 @@ $(document).ready(function() {
       // 立即更新 active 狀態
       updateActiveButton(targetId);
 
-      // 計算目標位置（減去偏移量）
-      const targetPosition = $target.offset().top - config.scrollOffset;
+      // 計算目標位置（減去動態偏移量）
+      const scrollOffset = getScrollOffset();
+      const targetPosition = $target.offset().top - scrollOffset;
 
       // 直接跳轉（無動畫）
       $(window).scrollTop(targetPosition);
@@ -68,7 +86,8 @@ $(document).ready(function() {
    * 檢測當前滾動位置對應的區域
    */
   function detectCurrentSection() {
-    const scrollPos = $(window).scrollTop() + config.scrollOffset + 50;
+    const scrollOffset = getScrollOffset();
+    const scrollPos = $(window).scrollTop() + scrollOffset + 50;
     
     // 所有區域的 ID
     const sections = ['#Research', '#Experience', '#Publications', '#Others'];
