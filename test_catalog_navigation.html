@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Catalog Navigation Test</title>
+  <link href="bootstrap/bootstrap.min.css" rel="stylesheet">
+  <script src="jquery-3.6.4.min.js"></script>
+  <script src="catalog-navigation.js"></script>
+  <link rel="stylesheet" type="text/css" href="style.css">
+  <style>
+    /* 測試用樣式 */
+    body {
+      padding-top: 60px;
+    }
+    .navbar {
+      height: 60px;
+      background: #660000;
+      color: white;
+    }
+    .test-section {
+      min-height: 600px;
+      padding: 40px;
+      border: 2px solid #ddd;
+      margin-bottom: 20px;
+    }
+    #Research { background: #ffe6e6; }
+    #Experience { background: #e6f3ff; }
+    #Publications { background: #e6ffe6; }
+    #Others { background: #fff3e6; }
+    
+    .catalog-sidebar {
+      position: fixed;
+      top: 100px;
+      right: 20px;
+      background: white;
+      padding: 20px;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+    .catalogIco {
+      width: 50px;
+      height: 50px;
+      display: inline-block;
+      border: 2px solid #660000;
+      border-radius: 50%;
+      margin: 5px;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+    .catalogIco:hover {
+      background: #f0f0f0;
+    }
+    .catalogIco.active {
+      background: #660000;
+      border-color: #660000;
+    }
+    .catalog-label {
+      display: inline-block;
+      margin-left: 10px;
+      vertical-align: middle;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- 固定導航欄 -->
+  <nav class="navbar fixed-top">
+    <div class="container">
+      <span class="navbar-brand">Catalog Navigation Test</span>
+    </div>
+  </nav>
+
+  <div class="container-fluid">
+    <div class="row">
+      
+      <!-- 主要內容 -->
+      <div class="col-9">
+        
+        <div id="Research" class="test-section">
+          <h2 class="text-primary fw-bolder">Research Area</h2>
+          <p>這是 Research 區域的內容。</p>
+          <p>滾動頁面時，右側的導航按鈕應該會自動更新 active 狀態。</p>
+          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+        </div>
+
+        <div id="Experience" class="test-section">
+          <h2 class="text-primary fw-bolder">Experience</h2>
+          <p>這是 Experience 區域的內容。</p>
+          <p>點擊右側的圓形按鈕應該會平滑滾動到對應的區域。</p>
+          <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+        </div>
+
+        <div id="Publications" class="test-section">
+          <h2 class="text-primary fw-bolder">Publications</h2>
+          <p>這是 Publications 區域的內容。</p>
+          <p>滾動偏移量設定為 120px，確保標題不會被導航欄遮住。</p>
+          <p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p>
+        </div>
+
+        <div id="Others" class="test-section">
+          <h2 class="text-primary fw-bolder">Other Interesting Works</h2>
+          <p>這是 Others 區域的內容。</p>
+          <p>使用節流（throttle）優化滾動事件的性能。</p>
+          <p>Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+        </div>
+
+      </div>
+
+      <!-- 側邊導航 -->
+      <div class="col-3">
+        <div class="catalog-sidebar">
+          <h5 class="mb-3">目錄導航</h5>
+          
+          <div class="mb-2">
+            <a class="catalogIco" href="#Research" id="ResearchBtn"></a>
+            <span class="catalog-label">Research</span>
+          </div>
+          
+          <div class="mb-2">
+            <a class="catalogIco active" href="#Experience" id="ExperienceBtn"></a>
+            <span class="catalog-label">Experience</span>
+          </div>
+          
+          <div class="mb-2">
+            <a class="catalogIco" href="#Publications" id="PublicationsBtn"></a>
+            <span class="catalog-label">Publications</span>
+          </div>
+          
+          <div class="mb-2">
+            <a class="catalogIco" href="#Others" id="OthersBtn"></a>
+            <span class="catalog-label">Others</span>
+          </div>
+
+          <hr class="my-3">
+          
+          <div class="small text-muted">
+            <p><strong>測試項目：</strong></p>
+            <ul class="ps-3">
+              <li>點擊圓形按鈕跳轉</li>
+              <li>平滑滾動動畫</li>
+              <li>自動更新 active 狀態</li>
+              <li>滾動監測準確性</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <script src="bootstrap/bootstrap.bundle.min.js"></script>
+</body>
+</html>
+
