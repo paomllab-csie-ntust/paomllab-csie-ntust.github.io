@@ -13,7 +13,7 @@ function loadPublications() {
 }
 
 function renderPublications(publications) {
-  // 按類型分組
+  // 按類型分組（保持原有順序，因為後端已經確保手動新增的在最前面）
   const journals = publications.filter(p => p.type === 'journal');
   const conferences = publications.filter(p => p.type === 'conference');
   const books = publications.filter(p => p.type === 'book');

@@ -125,7 +125,8 @@ def add_publication():
 
     new_pub['id'] = f"{prefix}{max_num + 1}"
 
-    data['publications'].append(new_pub)
+    # 手動新增的 publication 插入到最前面
+    data['publications'].insert(0, new_pub)
 
     if save_json('publications.json', data):
         return jsonify({'success': True, 'publication': new_pub})
