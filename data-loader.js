@@ -38,8 +38,8 @@ function renderPublications(publications) {
   }
 
   // 渲染 Dissertation
-  // Note: Dissertation content is static in professor/index.html, so we skip rendering here
-  // to avoid overwriting the static content
+  // Note: Dissertation content is static in professor/index.html
+  // Only render if there are dynamic dissertations in the JSON
   const dissertationContainer = document.getElementById('nav-dissertation');
   if (dissertationContainer && dissertations.length > 0) {
     dissertationContainer.innerHTML = dissertations.map(pub => renderPublication(pub)).join('');
