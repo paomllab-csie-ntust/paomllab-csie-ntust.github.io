@@ -96,16 +96,15 @@ $(document).ready(function() {
     let currentSection = sections[0]; // 預設為第一個
     let minDistance = Infinity;
 
+    // 檢測位置：視窗頂部 + offset + 小容差（避免邊界問題）
+    const viewportTop = currentScrollTop + scrollOffset + 1;
+
     for (let i = 0; i < sections.length; i++) {
       const $section = $(sections[i]);
 
       if ($section.length) {
         const sectionTop = $section.offset().top;
         const sectionBottom = sectionTop + $section.outerHeight();
-
-        // 計算這個區域在視窗中的可見範圍
-        // 視窗頂部位置 + offset = 實際檢測位置
-        const viewportTop = currentScrollTop + scrollOffset;
 
         // 優先檢查：區域頂部是否在視窗的檢測範圍內（offset 到視窗底部）
         if (sectionTop <= viewportTop && sectionBottom > viewportTop) {
@@ -122,6 +121,12 @@ $(document).ready(function() {
           }
         }
       }
+    }
+
+    // Others 沒有對應的 catalogIco，對應到 Publications
+    // 因為 Publications 是最後一個 catalogIco
+    if (currentSection === '#Others') {
+      currentSection = '#Publications';
     }
 
     // 更新 active 狀態

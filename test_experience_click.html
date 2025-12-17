@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Experience Click Bug Test</title>
+  <link href="bootstrap/bootstrap.min.css" rel="stylesheet">
+  <script src="jquery-3.6.4.min.js"></script>
+  <link rel="stylesheet" type="text/css" href="style.css">
+  <style>
+    body { padding-top: 0; }
+    .test-section {
+      min-height: 600px;
+      padding: 40px;
+      border: 3px solid #ddd;
+      margin-bottom: 20px;
+      position: relative;
+    }
+    .section-label {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      background: rgba(0,0,0,0.7);
+      color: white;
+      padding: 5px 10px;
+      border-radius: 4px;
+      font-size: 12px;
+    }
+    #Research { background: #ffe6e6; }
+    #Experience { background: #e6f3ff; }
+    #Awards { background: #fff3e6; }
+    #Publications { background: #e6ffe6; }
+    
+    .debug-panel {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      background: rgba(0,0,0,0.95);
+      color: #0f0;
+      padding: 20px;
+      border-radius: 8px;
+      font-family: monospace;
+      font-size: 12px;
+      z-index: 9999;
+      max-width: 400px;
+      max-height: 90vh;
+      overflow-y: auto;
+    }
+    .debug-panel div { margin: 3px 0; }
+    .debug-panel .highlight { color: #ff0; font-weight: bold; }
+    .debug-panel .error { color: #f00; font-weight: bold; }
+    .debug-panel hr { border-color: #333; margin: 8px 0; }
+  </style>
+</head>
+<body>
+
+  <!-- Catalog Navigation -->
+  <div class="sticky-top col-12 col-md bg-white px-0" id="catalog-out" style="top: 0;">
+    <div class="list-group text-center sticky-top mt-4" id="catalog">
+      <div class="container">
+        <div class="row">
+          <div class="col-3 col-md-12">
+            <a class="list-group-item list-group-item-action rounded-circle catalogIco" href="#Research" id="ResearchBtn">R</a>
+          </div>
+          <div class="col-3 col-md-12">
+            <a class="list-group-item list-group-item-action rounded-circle catalogIco" href="#Experience" id="ExperienceBtn">E</a>
+          </div>
+          <div class="col-3 col-md-12">
+            <a class="list-group-item list-group-item-action rounded-circle catalogIco" href="#Awards" id="AwardsBtn">A</a>
+          </div>
+          <div class="col-3 col-md-12">
+            <a class="list-group-item list-group-item-action rounded-circle catalogIco" href="#Publications" id="PublicationsBtn">P</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Main Content -->
+  <div class="container-fluid">
+    <div id="Research" class="test-section">
+      <div class="section-label">Research Area</div>
+      <h2 class="text-primary fw-bolder">Research Area</h2>
+      <p>測試區域 1</p>
+    </div>
+
+    <div id="Experience" class="test-section">
+      <div class="section-label">Experience</div>
+      <h2 class="text-primary fw-bolder">Experience</h2>
+      <p><strong>🐛 BUG 測試：點擊 Experience 按鈕後，應該保持 Experience active，不應該變成 Research active</strong></p>
+      <p>請觀察右側調試面板的信息</p>
+    </div>
+
+    <div id="Awards" class="test-section">
+      <div class="section-label">Awards</div>
+      <h2 class="text-primary fw-bolder">Awards</h2>
+      <p>測試區域 3</p>
+    </div>
+
+    <div id="Publications" class="test-section">
+      <div class="section-label">Publications</div>
+      <h2 class="text-primary fw-bolder">Publications</h2>
+      <p>測試區域 4</p>
+    </div>
+  </div>
+
+  <!-- Debug Panel -->
+  <div class="debug-panel">
+    <div><strong>🐛 Debug Info</strong></div>
+    <hr>
+    <div>Window Width: <span id="dbg-width">-</span></div>
+    <div>Offset: <span id="dbg-offset">-</span></div>
+    <div>ScrollTop: <span id="dbg-scroll">-</span></div>
+    <div>ViewportTop: <span id="dbg-viewport">-</span></div>
+    <div class="highlight">Active: <span id="dbg-active">-</span></div>
+    <div class="error">IsClickJumping: <span id="dbg-jumping">-</span></div>
+    <hr>
+    <div style="font-size: 11px;" id="dbg-sections"></div>
+    <hr>
+    <div style="font-size: 10px; color: #aaa;" id="dbg-log"></div>
+  </div>
+
+  <script src="catalog-navigation.js"></script>
+  <script>
+    const logs = [];
+    
+    // 攔截 console.log
+    const originalLog = console.log;
+    console.log = function(...args) {
+      logs.push(args.join(' '));
+      if (logs.length > 10) logs.shift();
+      originalLog.apply(console, args);
+    };
+    
+    // 調試信息更新
+    function updateDebug() {
+      const scrollTop = $(window).scrollTop();
+      const windowWidth = $(window).width();
+      const offset = windowWidth >= 768 ? 80 : ($('#catalog-out').outerHeight() + 60);
+      const viewportTop = scrollTop + offset;
+      const active = $('.catalogIco.active').attr('href') || 'none';
+      
+      $('#dbg-width').text(windowWidth);
+      $('#dbg-offset').text(offset.toFixed(0));
+      $('#dbg-scroll').text(scrollTop.toFixed(0));
+      $('#dbg-viewport').text(viewportTop.toFixed(0));
+      $('#dbg-active').text(active);
+      
+      // 顯示各區域位置
+      const sections = ['#Research', '#Experience', '#Awards', '#Publications'];
+      let html = '';
+      sections.forEach(id => {
+        const $sec = $(id);
+        if ($sec.length) {
+          const top = $sec.offset().top;
+          const bottom = top + $sec.outerHeight();
+          const inView = (top <= viewportTop && bottom > viewportTop);
+          const style = inView ? 'color: #0f0; font-weight: bold;' : '';
+          html += `<div style="${style}">${id}: top=${top.toFixed(0)}, bottom=${bottom.toFixed(0)} ${inView ? '✓ IN VIEW' : ''}</div>`;
+        }
+      });
+      $('#dbg-sections').html(html);
+      
+      // 顯示日誌
+      $('#dbg-log').html(logs.slice().reverse().join('<br>'));
+    }
+    
+    setInterval(updateDebug, 50);
+    
+    // 監聽點擊事件
+    $('.catalogIco').on('click', function() {
+      const target = $(this).attr('href');
+      console.log(`[CLICK] ${target} button clicked`);
+    });
+  </script>
+
+  <script src="bootstrap/bootstrap.bundle.min.js"></script>
+</body>
+</html>
+

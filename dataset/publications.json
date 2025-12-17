@@ -7,6 +7,7 @@
       "venue": "The 40th Annual AAAI Conference on Artificial Intelligence",
       "year": 2026,
       "highlight_author": "Hsing-Kuo Pao",
+      "note": "acceptance rate: 17.6%",
       "location": "Singapore",
       "date": "Jan 20 - Jan 27, 2026",
       "id": "cz2"
@@ -78,15 +79,16 @@
       "date": "July 15-19, 2024"
     },
     {
-      "id": "c39",
       "type": "conference",
       "authors": "Yueh-Lin Chung, Hsing-Kuo Pao",
       "title": "Density-Based Prototypical Contrastive Learning on Visual Representations.",
       "venue": "IEEE Big Data",
       "year": 2023,
       "highlight_author": "Hsing-Kuo Pao",
+      "note": "oral presentation, acceptance rate: 17.49%",
       "location": "Sorrento, Italy",
-      "date": "December 15-18, 2023"
+      "date": "December 15-18, 2023",
+      "id": "c39"
     },
     {
       "id": "c38",
@@ -276,15 +278,16 @@
       "date": "December 6-9, 2015"
     },
     {
-      "id": "c21",
       "type": "conference",
       "authors": "Xing-Yu Chen, Hsing-Kuo Pao, Yuh-Jye Lee",
       "title": "Efficient traffic speed forecasting based on massive heterogenous historical data.",
       "venue": "IEEE BigData",
       "year": 2014,
       "highlight_author": "Hsing-Kuo Pao",
+      "note": "citations: 47",
       "location": "Washington, DC, USA",
-      "date": "October 27-30, 2014"
+      "date": "October 27-30, 2014",
+      "id": "c21"
     },
     {
       "id": "c20",
@@ -309,15 +312,16 @@
       "date": "March 6-8, 2014"
     },
     {
-      "id": "c18",
       "type": "conference",
       "authors": "Min-Sheng Lin, Chien-Yi Chiu, Yuh-Jye Lee, Hsing-Kuo Pao",
       "title": "Malicious URL filtering - A big data application.",
       "venue": "IEEE BigData",
       "year": 2013,
       "highlight_author": "Hsing-Kuo Pao",
+      "note": "citations: 94",
       "location": "Santa Clara, CA, USA",
-      "date": ""
+      "date": "",
+      "id": "c18"
     },
     {
       "id": "c17",
@@ -386,15 +390,16 @@
       "pages": "101286"
     },
     {
-      "id": "c13",
       "type": "conference",
       "authors": "Danai Koutra, Tai-You Ke, U Kang, Duen Horng Chau, Hsing-Kuo Kenneth Pao, Christos Faloutsos",
       "title": "Unifying Guilt-by-Association Approaches: Theorems and Fast Algorithms.",
       "venue": "ECML/PKDD (2)",
       "year": 2011,
       "highlight_author": "Hsing-Kuo Pao",
+      "note": "citations: 172",
       "location": "Athens, Greece",
-      "date": "September 5-9, 2011"
+      "date": "September 5-9, 2011",
+      "id": "c13"
     },
     {
       "id": "j11",
@@ -419,15 +424,16 @@
       "date": "October 25-28, 2010"
     },
     {
-      "id": "j10",
       "type": "journal",
       "authors": "Zolnamar Dorjsembe, Hsing-Kuo Pao, Sodtavilan Odonchimed, Furen Xiao",
       "title": "Conditional Diffusion Models for Semantic 3D Brain MRI Synthesis.",
       "venue": "IEEE J. Biomed. Health Informatics",
       "year": 2024,
       "highlight_author": "Hsing-Kuo Pao",
+      "note": "citations: 181",
       "volume": "28",
-      "pages": "4084-4093"
+      "pages": "4084-4093",
+      "id": "j10"
     },
     {
       "id": "c11",
@@ -485,15 +491,16 @@
       "date": "September 25-27, 2008"
     },
     {
-      "id": "j7",
       "type": "journal",
       "authors": "Chih-Hung Lin, Hsing-Kuo Pao, Jian-Wei Liao",
       "title": "Efficient dynamic malware analysis using virtual time control mechanics.",
       "venue": "Comput. Secur.",
       "year": 2018,
       "highlight_author": "Hsing-Kuo Pao",
+      "note": "citations: 73",
       "volume": "73",
-      "pages": "359-373"
+      "pages": "359-373",
+      "id": "j7"
     },
     {
       "id": "c8",

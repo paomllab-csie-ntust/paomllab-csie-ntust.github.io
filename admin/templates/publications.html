@@ -355,6 +355,13 @@
                             </div>
                         </div>
                     </div>
+
+                    <!-- 備註欄位 -->
+                    <div class="mb-3">
+                        <label class="form-label">備註</label>
+                        <input type="text" class="form-control" id="pubNote" placeholder="例如: to appear, accepted">
+                        <small class="form-text text-muted">如果有備註，會在前端顯示為：Pattern Recognition, pp. 112777, 2025 (備註)</small>
+                    </div>
                 </form>
             </div>
             <div class="modal-footer">
@@ -492,6 +499,12 @@ $(document).ready(function() {
             highlight_author: $('#pubHighlight').val() || 'H.-K. Pao'
         };
 
+        // Add note if provided
+        const note = $('#pubNote').val();
+        if (note) {
+            pubData.note = note;
+        }
+
         // Add type-specific fields
         if (pubData.type === 'journal') {
             pubData.volume = $('#pubVolume').val();
@@ -558,6 +571,7 @@ $(document).ready(function() {
                 $('#pubVenue').val(pub.venue);
                 $('#pubYear').val(pub.year);
                 $('#pubHighlight').val(pub.highlight_author || '');
+                $('#pubNote').val(pub.note || '');
 
                 if (pub.type === 'journal') {
                     $('#pubVolume').val(pub.volume || '');

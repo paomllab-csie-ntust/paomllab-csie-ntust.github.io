@@ -103,6 +103,11 @@ function renderPublication(pub) {
     html += `${pub.year}.`;
   }
 
+  // 添加備註（如果有）
+  if (pub.note) {
+    html += ` (${pub.note})`;
+  }
+
   html += '</font></p>';
   return html;
 }
