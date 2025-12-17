@@ -87,27 +87,43 @@ $(document).ready(function() {
    */
   function detectCurrentSection() {
     const scrollOffset = getScrollOffset();
-    const scrollPos = $(window).scrollTop() + scrollOffset + 50;
-    
-    // 所有區域的 ID
-    const sections = ['#Research', '#Experience', '#Publications', '#Others'];
-    
-    // 從下往上檢查，找到第一個已經滾動過的區域
+    const currentScrollTop = $(window).scrollTop();
+
+    // 所有區域的 ID（按頁面順序排列）
+    const sections = ['#Research', '#Experience', '#Awards', '#Publications', '#Others'];
+
+    // 從下往上檢查，找到當前最接近的區域
     let currentSection = sections[0]; // 預設為第一個
-    
+    let minDistance = Infinity;
+
     for (let i = 0; i < sections.length; i++) {
       const $section = $(sections[i]);
-      
+
       if ($section.length) {
         const sectionTop = $section.offset().top;
-        
-        // 如果滾動位置已經超過這個區域的頂部
-        if (scrollPos >= sectionTop) {
+        const sectionBottom = sectionTop + $section.outerHeight();
+
+        // 計算這個區域在視窗中的可見範圍
+        // 視窗頂部位置 + offset = 實際檢測位置
+        const viewportTop = currentScrollTop + scrollOffset;
+
+        // 優先檢查：區域頂部是否在視窗的檢測範圍內（offset 到視窗底部）
+        if (sectionTop <= viewportTop && sectionBottom > viewportTop) {
           currentSection = sections[i];
+          break;
+        }
+
+        // 備選方案：找到最接近視窗頂部的區域
+        if (sectionTop <= viewportTop) {
+          const distance = viewportTop - sectionTop;
+          if (distance < minDistance) {
+            minDistance = distance;
+            currentSection = sections[i];
+          }
         }
       }
     }
-    
+
     // 更新 active 狀態
     updateActiveButton(currentSection);
   }

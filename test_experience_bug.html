@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Experience Bug Test</title>
+  <link href="bootstrap/bootstrap.min.css" rel="stylesheet">
+  <script src="jquery-3.6.4.min.js"></script>
+  <link rel="stylesheet" type="text/css" href="style.css">
+  <style>
+    body { padding-top: 0; }
+    .test-section {
+      min-height: 400px;
+      padding: 40px;
+      border: 3px solid #ddd;
+      margin-bottom: 20px;
+      position: relative;
+    }
+    .section-label {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      background: rgba(0,0,0,0.7);
+      color: white;
+      padding: 5px 10px;
+      border-radius: 4px;
+      font-size: 12px;
+    }
+    #Research { background: #ffe6e6; }
+    #Experience { background: #e6f3ff; }
+    #Awards { background: #fff3e6; min-height: 150px; }
+    #Publications { background: #e6ffe6; }
+    #Others { background: #f0e6ff; }
+    
+    .debug-panel {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      background: rgba(0,0,0,0.9);
+      color: #0f0;
+      padding: 15px;
+      border-radius: 8px;
+      font-family: monospace;
+      font-size: 11px;
+      z-index: 9999;
+      max-width: 300px;
+    }
+    .debug-panel div { margin: 3px 0; }
+    .debug-panel .highlight { color: #ff0; font-weight: bold; }
+  </style>
+</head>
+<body>
+
+  <!-- Catalog Navigation -->
+  <div class="sticky-top col-12 col-md bg-white px-0" id="catalog-out">
+    <div class="list-group text-center sticky-top mt-4" id="catalog">
+      <div class="container">
+        <div class="row">
+          <div class="col-3 col-md-12">
+            <div class="row">
+              <div class="col-12 col-md-auto d-flex justify-content-center">
+                <a class="list-group-item list-group-item-action rounded-circle catalogIco" href="#Research" id="ResearchBtn"></a>
+              </div>
+              <div class="col-12 col-md centerVertically text-md-start px-0">Research</div>
+            </div>
+          </div>
+          <div class="col-3 col-md-12">
+            <div class="row mt-md-3">
+              <div class="col-12 col-md-auto d-flex justify-content-center">
+                <a class="list-group-item list-group-item-action rounded-circle catalogIco" href="#Experience" id="ExperienceBtn"></a>
+              </div>
+              <div class="col-12 col-md centerVertically text-md-start px-0">Experience</div>
+            </div>
+          </div>
+          <div class="col-3 col-md-12">
+            <div class="row mt-md-3">
+              <div class="col-12 col-md-auto d-flex justify-content-center">
+                <a class="list-group-item list-group-item-action rounded-circle catalogIco" href="#Awards" id="AwardsBtn"></a>
+              </div>
+              <div class="col-12 col-md centerVertically text-md-start px-0">Awards</div>
+            </div>
+          </div>
+          <div class="col-3 col-md-12">
+            <div class="row mt-md-3">
+              <div class="col-12 col-md-auto d-flex justify-content-center">
+                <a class="list-group-item list-group-item-action rounded-circle catalogIco" href="#Publications" id="PublicationsBtn"></a>
+              </div>
+              <div class="col-12 col-md centerVertically text-md-start px-0">Publications</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Main Content -->
+  <div class="container-fluid">
+    <div id="Research" class="test-section">
+      <div class="section-label">Research Area</div>
+      <h2 class="text-primary fw-bolder">Research Area</h2>
+      <p>測試區域 1</p>
+    </div>
+
+    <div id="Experience" class="test-section">
+      <div class="section-label">Experience</div>
+      <h2 class="text-primary fw-bolder">Experience</h2>
+      <p><strong>點擊 Experience 按鈕後，應該保持 Experience active，不應該變成 Research active</strong></p>
+    </div>
+
+    <div id="Awards" class="test-section">
+      <div class="section-label">Awards (小區域)</div>
+      <h2 class="text-primary fw-bolder">Awards</h2>
+      <p>這是一個小區域，測試是否能正確檢測</p>
+    </div>
+
+    <div id="Publications" class="test-section">
+      <div class="section-label">Publications</div>
+      <h2 class="text-primary fw-bolder">Publications</h2>
+      <p>測試區域 4</p>
+    </div>
+
+    <div id="Others" class="test-section">
+      <div class="section-label">Others</div>
+      <h2 class="text-primary fw-bolder">Others</h2>
+      <p>測試區域 5</p>
+    </div>
+  </div>
+
+  <!-- Debug Panel -->
+  <div class="debug-panel">
+    <div><strong>🐛 Debug Info</strong></div>
+    <div>ScrollTop: <span id="dbg-scroll">-</span></div>
+    <div>Offset: <span id="dbg-offset">-</span></div>
+    <div>ViewportTop: <span id="dbg-viewport">-</span></div>
+    <div class="highlight">Active: <span id="dbg-active">-</span></div>
+    <hr style="border-color: #333; margin: 8px 0;">
+    <div style="font-size: 10px;" id="dbg-sections"></div>
+  </div>
+
+  <script src="catalog-navigation.js"></script>
+  <script>
+    // 調試信息更新
+    function updateDebug() {
+      const scrollTop = $(window).scrollTop();
+      const offset = $(window).width() >= 768 ? 80 : ($('#catalog-out').outerHeight() + 60);
+      const viewportTop = scrollTop + offset;
+      const active = $('.catalogIco.active').attr('href') || 'none';
+      
+      $('#dbg-scroll').text(scrollTop.toFixed(0));
+      $('#dbg-offset').text(offset.toFixed(0));
+      $('#dbg-viewport').text(viewportTop.toFixed(0));
+      $('#dbg-active').text(active);
+      
+      // 顯示各區域位置
+      const sections = ['#Research', '#Experience', '#Awards', '#Publications', '#Others'];
+      let html = '';
+      sections.forEach(id => {
+        const $sec = $(id);
+        if ($sec.length) {
+          const top = $sec.offset().top.toFixed(0);
+          const bottom = (top - 0 + $sec.outerHeight()).toFixed(0);
+          const inView = (top <= viewportTop && bottom > viewportTop) ? '✓' : '';
+          html += `<div>${id}: ${top}-${bottom} ${inView}</div>`;
+        }
+      });
+      $('#dbg-sections').html(html);
+    }
+    
+    setInterval(updateDebug, 100);
+  </script>
+
+  <script src="bootstrap/bootstrap.bundle.min.js"></script>
+</body>
+</html>
+
